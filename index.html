@@ -4,177 +4,236 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#0E7C86">
-<title>مرجع أدوية التخدير — د. منوّرة محمد جواد</title>
+<meta name="theme-color" content="#08353C">
+<title>د. منوّرة محمد جواد — مرجع أدوية التخدير</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Literata:opsz,wght@7..72,500;7..72,700&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#EEF5F6; --surface:#FFFFFF; --ink:#0C2430; --muted:#4A6670; --line:#C5D6DB;
-  --accent:#0B6E78; --accent-soft:#D7EEF0; --accent-ink:#FFFFFF;
-  --warn:#7A3410; --warn-bg:#F8EDE4; --tag:#DCEBEE;
-  --side:#E3F0F2; --top:64px; --radius:12px;
+  --paper:#F3FAFB; --ink:#102830;
+  --muted:#5A737B; --line:rgba(16,40,48,.12); --accent:#0E7F88;
+  --accent-2:#C4A574; --surface:#FFFFFF; --soft:#E5F3F4;
+  --side:#0A2B32; --side-ink:#D7EBEE; --side-muted:#8BB0B7;
+  --panel:rgba(255,255,255,.72); --section:#F7FCFC; --section-2:#F1F8F9;
+  --chapter-bg:linear-gradient(180deg, rgba(243,250,251,.96), rgba(243,250,251,.88));
+  --page-bg:radial-gradient(900px 420px at 90% -10%, rgba(196,165,116,.18), transparent 55%),
+    radial-gradient(700px 500px at -10% 20%, rgba(14,127,136,.14), transparent 50%),
+    linear-gradient(180deg, #EAF5F6 0%, var(--paper) 28%, #EEF6F7 100%);
+  --ok:#0B7A5A; --top:68px; --r:18px;
   --safe-t:env(safe-area-inset-top,0px); --safe-b:env(safe-area-inset-bottom,0px);
   --safe-l:env(safe-area-inset-left,0px); --safe-r:env(safe-area-inset-right,0px);
-  color-scheme:light;
 }
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --bg:#0A161B; --surface:#12242B; --ink:#E6F1F3; --muted:#9BB3BA; --line:#243F48;
-    --accent:#4DBDC8; --accent-soft:#16343A; --accent-ink:#062028;
-    --warn:#F0B48E; --warn-bg:#2A1C14; --tag:#1A333C; --side:#0E1E24; color-scheme:dark;
-  }
-}
-:root[data-theme="dark"]{
-  --bg:#0A161B; --surface:#12242B; --ink:#E6F1F3; --muted:#9BB3BA; --line:#243F48;
-  --accent:#4DBDC8; --accent-soft:#16343A; --accent-ink:#062028;
-  --warn:#F0B48E; --warn-bg:#2A1C14; --tag:#1A333C; --side:#0E1E24; color-scheme:dark;
+html[data-theme="dark"]{
+  --paper:#0B1C21; --ink:#E7F3F5;
+  --muted:#9BB4BB; --line:rgba(231,243,245,.12); --accent:#4DBDC8;
+  --accent-2:#D2B484; --surface:#12262C; --soft:#16343A;
+  --side:#07171C; --side-ink:#D7EBEE; --side-muted:#7FA4AC;
+  --panel:rgba(18,38,44,.82); --section:#153038; --section-2:#12282E;
+  --chapter-bg:linear-gradient(180deg, rgba(11,28,33,.96), rgba(11,28,33,.88));
+  --page-bg:radial-gradient(800px 380px at 90% -10%, rgba(196,165,116,.12), transparent 55%),
+    linear-gradient(180deg, #07161B 0%, #0B1C21 100%);
+  color-scheme:dark;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:calc(var(--top) + 12px)}
-html,body{
-  margin:0;background:var(--bg);color:var(--ink);
-  font-family:"IBM Plex Sans Arabic","IBM Plex Sans",sans-serif;
-  line-height:1.65;font-size:16px;
-  -webkit-user-select:text;user-select:text;-webkit-touch-callout:default;
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--top) + 16px)}
+body{
+  margin:0; color:var(--ink); font-family:"Tajawal",sans-serif; font-size:16.5px; line-height:1.7;
+  background:var(--page-bg);
+  min-height:100vh;
+  -webkit-user-select:text; user-select:text; -webkit-touch-callout:default;
   -webkit-tap-highlight-color:transparent;
 }
-::selection{background:color-mix(in srgb,var(--accent) 30%,transparent)}
-button,input{font:inherit;touch-action:manipulation}
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; opacity:.35; z-index:0;
+  background-image:linear-gradient(rgba(14,127,136,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(14,127,136,.05) 1px, transparent 1px);
+  background-size:28px 28px; mask-image:radial-gradient(ellipse at center, #000 30%, transparent 78%);
+}
+::selection{background:rgba(14,127,136,.28)}
+button,input{font:inherit; touch-action:manipulation}
+.wrap{position:relative; z-index:1; max-width:1320px; margin:0 auto}
+
 .topbar{
-  position:sticky;top:0;z-index:30;
-  display:flex;align-items:center;gap:10px;
+  position:sticky; top:0; z-index:40;
+  display:flex; align-items:center; gap:12px;
   min-height:var(--top);
-  padding:calc(8px + var(--safe-t)) 14px 8px;
-  padding-inline:max(14px,var(--safe-l)) max(14px,var(--safe-r));
-  background:color-mix(in srgb,var(--surface) 92%,transparent);
-  backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+  padding:calc(10px + var(--safe-t)) max(16px,var(--safe-r)) 10px max(16px,var(--safe-l));
+  background:rgba(7,30,36,.82); color:#EAF6F7;
+  backdrop-filter:blur(16px) saturate(1.2);
+  border-bottom:1px solid rgba(255,255,255,.08);
 }
-.menu-btn,.icon-btn{
-  flex:none;width:44px;height:44px;border-radius:10px;
-  border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;
-  display:grid;place-items:center;font-size:1.1rem;
+.topbar .mark{
+  width:42px; height:42px; border-radius:14px; flex:none;
+  display:grid; place-items:center; font-family:"Amiri",serif; font-weight:700; font-size:1.2rem;
+  background:linear-gradient(145deg, var(--accent-2), #9A7A4A); color:#1A1208;
+  box-shadow:0 8px 20px rgba(196,165,116,.25);
 }
-.brand-wrap{flex:1;min-width:0}
-.brand-name{margin:0;font-size:clamp(1rem,3.5vw,1.2rem);font-weight:700;line-height:1.25}
-.brand-sub{margin:2px 0 0;font-size:.78rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.shell{display:grid;grid-template-columns:280px minmax(0,1fr);max-width:1280px;margin:0 auto;min-height:100vh}
+.brand{flex:1; min-width:0}
+.brand strong{display:block; font-family:"Amiri",serif; font-size:clamp(1.15rem,3.4vw,1.45rem); font-weight:700; line-height:1.2}
+.brand span{display:block; font-size:.78rem; opacity:.72; margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.icon{
+  width:44px; height:44px; border-radius:12px; border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.06); color:#EAF6F7; cursor:pointer; display:grid; place-items:center;
+}
+.icon:active{transform:scale(.96)}
+
+.shell{display:grid; grid-template-columns:290px minmax(0,1fr); gap:0; min-height:calc(100vh - var(--top))}
 .side{
-  position:sticky;top:var(--top);align-self:start;height:calc(100vh - var(--top));
-  overflow:auto;background:var(--side);border-inline-end:1px solid var(--line);
-  padding:16px 12px calc(24px + var(--safe-b));
+  background:linear-gradient(180deg, var(--side) 0%, #071F25 100%);
+  color:var(--side-ink); padding:22px 14px calc(28px + var(--safe-b));
+  position:sticky; top:var(--top); height:calc(100vh - var(--top)); overflow:auto;
+  border-inline-end:1px solid rgba(255,255,255,.06);
 }
-.nav-label{font-size:.72rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin:0 8px 8px}
-.nav{display:flex;flex-direction:column;gap:4px}
+.side-title{font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--side-muted); margin:0 10px 12px; font-weight:700}
+.nav{display:flex; flex-direction:column; gap:6px}
 .nav button{
-  text-align:start;padding:11px 12px;border-radius:10px;border:1px solid transparent;
-  background:transparent;color:var(--ink);cursor:pointer;font-size:.92rem;line-height:1.35;
+  text-align:start; border:0; cursor:pointer; color:inherit; background:transparent;
+  border-radius:14px; padding:12px 14px; transition:background .2s, transform .2s;
 }
-.nav button:hover{background:var(--surface)}
-.nav button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
-.nav .pg{display:block;font-size:.72rem;opacity:.85;margin-top:3px}
-.main{padding:18px 22px calc(48px + var(--safe-b));min-width:0}
+.nav button:hover{background:rgba(255,255,255,.06)}
+.nav button[aria-pressed="true"]{
+  background:linear-gradient(90deg, rgba(196,165,116,.22), rgba(14,127,136,.35));
+  box-shadow:inset 3px 0 0 var(--accent-2);
+}
+.nav .t{display:block; font-weight:700; font-size:.95rem}
+.nav .s{display:block; font-size:.75rem; color:var(--side-muted); margin-top:3px}
+
+.main{padding:22px 24px calc(56px + var(--safe-b)); min-width:0}
 .hero{
+  position:relative; overflow:hidden; border-radius:28px; margin-bottom:18px;
+  padding:clamp(22px,4vw,36px);
+  color:#F4FBFC;
   background:
-    radial-gradient(120% 80% at 100% 0%, color-mix(in srgb,var(--accent) 16%,transparent), transparent 55%),
-    var(--surface);
-  border:1px solid var(--line);border-radius:16px;padding:18px 18px 16px;margin-bottom:14px;
+    radial-gradient(500px 220px at 85% 0%, rgba(196,165,116,.35), transparent 60%),
+    linear-gradient(135deg, #08353C 0%, #0E5B63 48%, #0A444C 100%);
+  box-shadow:0 24px 50px rgba(8,53,60,.22);
+  animation:rise .7s ease both;
 }
-.hero h1{margin:0 0 6px;font-size:clamp(1.35rem,3vw,1.75rem);line-height:1.3}
-.hero p{margin:0;color:var(--muted);font-size:.95rem}
-.warn{
-  background:var(--warn-bg);color:var(--warn);border-radius:10px;
-  padding:11px 13px;font-size:.9rem;margin:12px 0 0;
+.hero::after{
+  content:""; position:absolute; inset:auto -10% -40% auto; width:280px; height:280px; border-radius:50%;
+  background:radial-gradient(circle, rgba(255,255,255,.12), transparent 70%); pointer-events:none;
 }
-.chips{
-  display:flex;gap:8px;overflow-x:auto;padding:4px 0 12px;
-  scrollbar-width:thin;-webkit-overflow-scrolling:touch;
+.hero-kicker{margin:0 0 8px; color:var(--accent-2); font-weight:700; font-size:.85rem; letter-spacing:.04em}
+.hero h1{
+  margin:0; font-family:"Amiri",serif; font-weight:700;
+  font-size:clamp(2rem,5.5vw,3.15rem); line-height:1.25; max-width:16ch;
 }
+.hero p{margin:12px 0 0; max-width:42ch; opacity:.86; font-size:1.02rem}
+.hero-stats{display:flex; flex-wrap:wrap; gap:10px; margin-top:18px}
+.hero-stats span{
+  display:inline-flex; align-items:center; gap:6px; padding:7px 12px; border-radius:999px;
+  background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.12); font-size:.84rem;
+}
+
+.panel{
+  background:var(--panel); border:1px solid var(--line); border-radius:22px;
+  padding:14px; backdrop-filter:blur(8px); margin-bottom:14px;
+  box-shadow:0 10px 30px rgba(16,40,48,.04); animation:rise .75s .05s ease both;
+}
+.chips{display:flex; gap:8px; overflow-x:auto; padding:2px 2px 10px; -webkit-overflow-scrolling:touch; scrollbar-width:thin}
 .chip{
-  flex:none;padding:8px 14px;border-radius:999px;border:1px solid var(--line);
-  background:var(--surface);color:var(--ink);cursor:pointer;font-size:.86rem;white-space:nowrap;
+  flex:none; border:1px solid var(--line); background:var(--surface); color:var(--ink);
+  border-radius:999px; padding:9px 14px; cursor:pointer; font-size:.86rem; font-weight:700;
 }
-.chip[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
-.toolbar{display:grid;gap:10px;margin-bottom:8px}
-input[type=search]{
-  width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:12px;
-  background:var(--surface);color:var(--ink);font-size:1rem;
-  -webkit-user-select:text;user-select:text;
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--surface); border-color:var(--ink)}
+.toolbar{display:grid; gap:10px}
+.search{
+  display:flex; align-items:center; gap:10px; background:var(--surface); border:1px solid var(--line);
+  border-radius:16px; padding:4px 4px 4px 14px;
 }
-input:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
-.tools{display:flex;flex-wrap:wrap;gap:8px}
+.search svg{flex:none; opacity:.55}
+.search input{
+  flex:1; border:0; outline:0; background:transparent; padding:12px 8px; font-size:1rem; min-width:0;
+  color:var(--ink); -webkit-user-select:text; user-select:text;
+}
+.tools{display:flex; flex-wrap:wrap; gap:8px}
 .tools button{
-  min-height:40px;padding:8px 12px;border-radius:10px;border:1px solid var(--line);
-  background:var(--surface);color:var(--ink);cursor:pointer;font-size:.88rem;
+  min-height:42px; padding:8px 14px; border-radius:12px; border:1px solid var(--line);
+  background:var(--surface); cursor:pointer; font-weight:700; font-size:.88rem; color:var(--ink);
 }
-.count{color:var(--muted);font-size:.9rem;margin:4px 0 12px}
-.chapter-block{margin:0 0 26px}
+.tools button:hover{border-color:var(--accent); color:var(--accent)}
+.count{margin:10px 4px 14px; color:var(--muted); font-size:.9rem; font-weight:500}
+
+.chapter{margin:0 0 28px; animation:rise .5s ease both}
 .chapter-head{
-  display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;
-  padding:8px 0;margin-bottom:10px;border-bottom:2px solid var(--line);
-  position:sticky;top:calc(var(--top) + 2px);background:var(--bg);z-index:5;
+  display:flex; flex-wrap:wrap; align-items:end; justify-content:space-between; gap:8px;
+  margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid var(--line);
+  position:sticky; top:calc(var(--top) + 4px); z-index:5;
+  background:var(--chapter-bg);
+  backdrop-filter:blur(8px);
 }
-.chapter-head h2{margin:0;font-size:1.08rem}
-.chapter-head .meta{color:var(--muted);font-size:.82rem}
-.drug-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px}
-details{
-  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
-  min-width:0;overflow:hidden;
+.chapter-head h2{margin:0; font-size:1.15rem; font-weight:800}
+.chapter-head .meta{color:var(--muted); font-size:.82rem}
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:14px}
+
+details.drug{
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--r);
+  overflow:hidden; transition:box-shadow .25s, transform .25s, border-color .25s;
 }
+details.drug[open]{border-color:rgba(14,127,136,.35); box-shadow:0 16px 36px rgba(8,53,60,.08)}
 summary{
-  list-style:none;cursor:pointer;padding:14px 14px;
-  display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;
-  -webkit-user-select:text;user-select:text;
+  list-style:none; cursor:pointer; padding:16px 16px 16px 14px;
+  display:grid; grid-template-columns:auto 1fr auto; gap:12px; align-items:center;
+  -webkit-user-select:text; user-select:text;
 }
 summary::-webkit-details-marker{display:none}
-.nm{font-weight:700;font-size:1.05rem}
-.tag{margin-inline-start:auto;font-size:.75rem;background:var(--tag);padding:3px 10px;border-radius:999px}
-.body{padding:0 12px 14px;border-top:1px solid var(--line)}
+.dot{
+  width:10px; height:10px; border-radius:50%; background:var(--accent);
+  box-shadow:0 0 0 6px rgba(14,127,136,.12);
+}
+.nm{font-family:"Literata",Georgia,serif; font-weight:700; font-size:1.12rem; line-height:1.25}
+.ch{font-size:.75rem; font-weight:700; color:var(--accent); background:var(--soft); padding:4px 10px; border-radius:999px}
+.body{padding:0 14px 16px; border-top:1px solid var(--line)}
+.actions{display:flex; justify-content:flex-end; padding:12px 0 4px}
 .section{
-  margin-top:10px;padding:10px 11px;border-radius:10px;background:color-mix(in srgb,var(--accent-soft) 55%,var(--surface));
-  border:1px solid color-mix(in srgb,var(--line) 80%,transparent);
+  margin-top:10px; padding:12px 13px; border-radius:14px;
+  background:linear-gradient(180deg, var(--section), var(--section-2));
+  border:1px solid rgba(14,127,136,.1);
 }
-.section-head{display:flex;align-items:center;gap:8px;margin-bottom:6px}
-.section-head h3{margin:0;font-size:.92rem;font-weight:700;flex:1}
+.section-head{display:flex; align-items:center; gap:10px; margin-bottom:6px}
+.section-head h3{margin:0; flex:1; font-size:.9rem; font-weight:800; color:var(--accent)}
 .copy-btn{
-  flex:none;min-height:34px;padding:5px 10px;border-radius:8px;
-  border:1px solid var(--line);background:var(--surface);color:var(--ink);
-  cursor:pointer;font-size:.78rem;font-weight:600;
+  flex:none; min-height:36px; padding:6px 12px; border-radius:10px; cursor:pointer;
+  border:1px solid rgba(14,127,136,.2); background:var(--surface); color:var(--accent);
+  font-size:.8rem; font-weight:800;
 }
-.copy-btn.ok{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
-.section p{margin:0;font-size:.95rem;white-space:pre-wrap;-webkit-user-select:text;user-select:text}
-.actions{display:flex;justify-content:flex-end;gap:8px;padding-top:10px}
-.ref{color:var(--muted);font-size:.8rem;margin:12px 2px 0}
-.empty{padding:28px 0;color:var(--muted);text-align:center}
-.foot{font-size:.86rem;color:var(--muted);margin-top:24px;max-width:70ch}
-.backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:40}
+.copy-btn.ok{background:#E8F7F0; border-color:var(--ok); color:var(--ok)}
+.section-text{margin:0; font-size:.98rem; white-space:pre-wrap; -webkit-user-select:text; user-select:text}
+.ref{margin:12px 2px 0; color:var(--muted); font-size:.8rem}
+.empty{text-align:center; padding:40px 10px; color:var(--muted)}
+.foot{margin-top:28px; color:var(--muted); font-size:.9rem; text-align:center}
+.foot strong{color:var(--ink); font-family:"Amiri",serif; font-size:1.05rem}
+
+.backdrop{display:none; position:fixed; inset:0; background:rgba(4,18,22,.5); z-index:50}
 .backdrop.show{display:block}
 .toast{
-  position:fixed;left:50%;bottom:calc(18px + var(--safe-b));transform:translateX(-50%) translateY(120%);
-  background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:999px;font-size:.88rem;
-  z-index:50;opacity:0;transition:.25s ease;pointer-events:none;white-space:nowrap;
+  position:fixed; left:50%; bottom:calc(20px + var(--safe-b)); transform:translateX(-50%) translateY(140%);
+  background:#08353C; color:#F3FAFB; padding:12px 18px; border-radius:999px; font-weight:700;
+  z-index:60; opacity:0; transition:.28s ease; pointer-events:none; box-shadow:0 12px 30px rgba(0,0,0,.25);
 }
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.show{opacity:1; transform:translateX(-50%) translateY(0)}
+
+@keyframes rise{from{opacity:0; transform:translateY(12px)} to{opacity:1; transform:none}}
+
 @media (max-width:980px){
   .shell{grid-template-columns:1fr}
   .side{
-    display:block;position:fixed;top:0;bottom:0;inset-inline-start:0;width:min(88vw,300px);
-    height:100%;z-index:45;transform:translateX(100%);transition:transform .22s ease;
-    padding-top:calc(16px + var(--safe-t));box-shadow:0 0 40px rgba(0,0,0,.2);
+    position:fixed; top:0; bottom:0; inset-inline-start:0; width:min(88vw,310px); height:100%;
+    z-index:55; transform:translateX(110%); transition:transform .24s ease; padding-top:calc(18px + var(--safe-t));
   }
-  html[dir="rtl"] .side{transform:translateX(-100%)}
+  html[dir="rtl"] .side{transform:translateX(-110%)}
   .side.open{transform:translateX(0)!important}
-  .main{padding:14px 14px calc(40px + var(--safe-b))}
-  .drug-grid{grid-template-columns:1fr}
-  .menu-btn{display:grid}
+  .main{padding:16px 14px calc(40px + var(--safe-b))}
+  .grid{grid-template-columns:1fr}
+  .menu-only{display:grid}
 }
 @media (min-width:981px){
-  .menu-btn{display:none}
+  .menu-only{display:none}
   .chips{display:none}
 }
-@media (min-width:700px) and (max-width:980px){
-  .drug-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (min-width:720px) and (max-width:980px){
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 </style>
 </head>
@@ -183,60 +242,72 @@ summary::-webkit-details-marker{display:none}
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <header class="topbar">
-  <button type="button" class="menu-btn" id="menuBtn" aria-label="الفصول">☰</button>
-  <div class="brand-wrap">
-    <p class="brand-name">د. منوّرة محمد جواد</p>
-    <p class="brand-sub">مرجع أدوية التخدير والعناية الحرجة · Anesthesia Drug Reference</p>
+  <button type="button" class="icon menu-only" id="menuBtn" aria-label="الفصول">☰</button>
+  <div class="mark" aria-hidden="true">م</div>
+  <div class="brand">
+    <strong>الدكتورة منوّرة محمد جواد</strong>
+    <span>مرجع أدوية التخدير والعناية الحرجة</span>
   </div>
-  <button type="button" class="icon-btn" id="themeBtn" aria-label="السمة">◐</button>
+  <button type="button" class="icon" id="themeBtn" aria-label="مظهر" title="مظهر">◐</button>
 </header>
 
+<div class="wrap">
 <div class="shell">
   <aside class="side" id="side" aria-label="الفصول">
-    <p class="nav-label">Chapters / الفصول</p>
+    <p class="side-title">الفصول</p>
     <nav class="nav" id="nav"></nav>
   </aside>
+
   <main class="main">
     <section class="hero">
-      <h1>مرجع أدوية التخدير</h1>
-      <p>منصة تعليمية بإشراف <strong>الدكتورة منوّرة محمد جواد</strong> — ملخصات من Morgan &amp; Mikhail (فصول 8–17).</p>
-      <p class="warn">للتعليم فقط وليس بديلاً عن بروتوكول مؤسستك أو نشرة الدواء الرسمية. يمكنك تحديد أي نص ونسخه، أو استخدام زر «نسخ» بجانب كل فقرة.</p>
+      <p class="hero-kicker">Anesthesia Drug Desk</p>
+      <h1>الدكتورة منوّرة محمد جواد</h1>
+      <p>مرجع منظم لأدوية التخدير عبر الفصول 8–17، بواجهة سريعة للجوال والآيباد والحاسوب.</p>
+      <div class="hero-stats">
+        <span id="statDrugs">— دواء</span>
+        <span>10 فصول</span>
+        <span>نسخ بنقرة واحدة</span>
+      </div>
     </section>
 
-    <div class="chips" id="chips" role="group" aria-label="Quick chapters"></div>
-
-    <div class="toolbar">
-      <input type="search" id="q" placeholder="ابحث باسم الدواء أو التأثير… / Search drug or effect" aria-label="بحث" autocomplete="off">
-      <div class="tools">
-        <button type="button" id="expandAll">توسيع الكل</button>
-        <button type="button" id="collapseAll">طي الكل</button>
-        <button type="button" id="copySel">نسخ التحديد</button>
+    <div class="panel">
+      <div class="chips" id="chips"></div>
+      <div class="toolbar">
+        <label class="search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20l-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <input type="search" id="q" placeholder="ابحث عن دواء، آلية، أو تأثير…" aria-label="بحث" autocomplete="off">
+        </label>
+        <div class="tools">
+          <button type="button" id="expandAll">توسيع الكل</button>
+          <button type="button" id="collapseAll">طي الكل</button>
+          <button type="button" id="copySel">نسخ التحديد</button>
+        </div>
       </div>
     </div>
+
     <p class="count" id="count" aria-live="polite"></p>
     <div id="list"></div>
-    <p class="foot">المنصة باسم <strong>الدكتورة منوّرة محمد جواد</strong>. الملخصات تعليمية بصياغة خاصة. الصفحات تقريبية حسب ملف الفصول. مناسبة للجوال والآيباد والحاسوب.</p>
+    <p class="foot"><strong>د. منوّرة محمد جواد</strong><br>مرجع أدوية التخدير</p>
   </main>
+</div>
 </div>
 
 <script>
-["copy","cut","selectstart","contextmenu"].forEach(function(ev){
-  document.addEventListener(ev, function(){}, true);
-});
+document.addEventListener("copy", function(){}, true);
+document.addEventListener("cut", function(){}, true);
 
 var C={
   8:{title:"Inhalation Anesthetics", ar:"مخدرات استنشاقية", pdf:"1–35"},
   9:{title:"Intravenous Anesthetics", ar:"مخدرات وريدية", pdf:"36–60"},
   10:{title:"Analgesic Agents", ar:"مسكنات", pdf:"61–78"},
   11:{title:"Neuromuscular Blocking Agents", ar:"مرخيات عضلية", pdf:"79–115"},
-  12:{title:"Cholinesterase Inhibitors & Antagonists", ar:"مثبطات الكولينستراز ومضادات", pdf:"116–133"},
+  12:{title:"Cholinesterase Inhibitors & Antagonists", ar:"مثبطات الكولينستراز", pdf:"116–133"},
   13:{title:"Anticholinergic Drugs", ar:"مضادات كولينرجية", pdf:"134–141"},
   14:{title:"Adrenergic Agonists & Antagonists", ar:"أدوية أدرينرجية", pdf:"142–164"},
   15:{title:"Hypotensive Agents", ar:"خافضات ضغط", pdf:"165–178"},
   16:{title:"Local Anesthetics", ar:"مخدرات موضعية", pdf:"179–198"},
   17:{title:"Adjuncts to Anesthesia", ar:"مساعدات التخدير", pdf:"199–234"}
 };
-
 var D=[
 ["Nitrous oxide",8,"19–22","Gas at room temperature; NMDA receptor antagonist like xenon. Nonflammable but supports combustion.","Adjunct to potent volatile agents (65% lowers their MAC by about 50%). Analgesia below MAC in dental work, labor, trauma and minor procedures.","Expands closed air spaces. Limited use when high inspired oxygen is needed. Raises postoperative nausea and vomiting in adults. Usually avoided before the third trimester.",[["Cardiovascular","Sympathetic stimulation keeps blood pressure, cardiac output and heart rate roughly unchanged despite direct myocardial depression, which can be unmasked in coronary disease or severe hypovolemia. Pulmonary vascular resistance rises modestly."],["Respiratory","Faster, shallower breathing with little change in minute ventilation. Markedly depresses the hypoxic drive even at small concentrations."],["CNS and other organs","Raises cerebral blood flow, blood volume and oxygen consumption, so ICP rises mildly. No meaningful muscle relaxation. Does not trigger malignant hyperthermia. Lowers renal blood flow and urine output; hepatic flow falls less than with volatile agents."],["Toxicity","Oxidizes the cobalt of vitamin B12, inhibiting methionine synthetase (myelin) and thymidylate synthetase (DNA). Prolonged exposure can cause megaloblastic anemia and neuropathy. May impair neutrophil function. Ozone-depleting greenhouse gas."],["Contraindications","About 35 times more soluble than nitrogen, so it enters closed gas spaces faster than nitrogen leaves: pneumothorax, bowel obstruction, air embolism, pneumocephalus, pulmonary air cysts, intraocular gas, middle-ear grafts. It also diffuses into endotracheal cuffs."],["Interactions","Changing the nitrous oxide fraction changes the volatile concentration delivered at a fixed vaporizer setting. It attenuates the circulatory and respiratory effects of volatile agents in adults."]]],
 ["Halothane",8,"22–26","Halogenated alkane, nonflammable. Potent bronchodilator.","Historically used for inhalation induction, especially in children.","Dose-dependent myocardial depression. Sensitizes the heart to epinephrine (avoid above 1.5 mcg/kg). Rare immune-mediated hepatitis.",[["Cardiovascular","At 2 MAC in non-surgical patients, blood pressure and cardiac output fell by 50%. Blunts the baroreflex; may cause junctional rhythm or bradycardia. In infants it lowers cardiac output through lower heart rate and contractility."],["Respiratory","Rapid shallow breathing, lower alveolar ventilation, higher PaCO2 and apneic threshold. Hypoxic drive is severely depressed even at 0.1 MAC. Bronchodilation is not blocked by β-blockers. Reduces mucociliary clearance."],["CNS","Dilates cerebral vessels, raising blood flow and volume, and blunts autoregulation. Establish hyperventilation before giving it to prevent ICP rise."],["Other organs","Relaxes muscle and potentiates nondepolarizing blockers. Triggers malignant hyperthermia. Lowers renal blood flow, GFR and urine output (preoperative hydration limits this). Hepatic blood flow falls with cardiac output; clearance of fentanyl, phenytoin and verapamil may be impaired."],["Metabolism and toxicity","Oxidized by CYP2E1 to trifluoroacetic acid. Reductive metabolism under low oxygen, especially after enzyme induction by barbiturates, produces hepatotoxic products. Risk factors for hepatitis: repeated exposures at short intervals, middle-aged obese women, personal or family history. Features include eosinophilia, rash and fever, with an immune response against trifluoroacetylated liver proteins."],["Contraindications","Unexplained liver dysfunction after a prior exposure; intracranial mass lesions (only with modest hyperventilation); hypovolemia or severe left ventricular dysfunction; pheochromocytoma or use of exogenous epinephrine."],["Interactions","Myocardial depression worsens with β-blockers and calcium channel blockers. Blood pressure swings and arrhythmias with tricyclics and MAO inhibitors (not absolute contraindications). Ventricular arrhythmias with aminophylline."]]],
@@ -317,6 +388,7 @@ var D=[
 ];
 
 
+
 var cat="all";
 var q=document.getElementById("q");
 var list=document.getElementById("list");
@@ -326,100 +398,103 @@ var chips=document.getElementById("chips");
 var side=document.getElementById("side");
 var backdrop=document.getElementById("backdrop");
 var toastEl=document.getElementById("toast");
+var byName={};
+D.forEach(function(d){ byName[d[0]]=d; });
 
 function esc(s){
-  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  return String(s==null?"":s)
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;").replace(/'/g,"&#39;");
 }
 function toast(msg){
   toastEl.textContent=msg;
   toastEl.classList.add("show");
   clearTimeout(toastEl._t);
-  toastEl._t=setTimeout(function(){toastEl.classList.remove("show")},1400);
+  toastEl._t=setTimeout(function(){ toastEl.classList.remove("show"); }, 1400);
 }
 function closeMenu(){
   side.classList.remove("open");
   backdrop.classList.remove("show");
   backdrop.hidden=true;
 }
+function flashBtn(btn){
+  if(!btn) return;
+  var old=btn.getAttribute("data-label") || btn.textContent;
+  btn.setAttribute("data-label", old);
+  btn.textContent="تم ✓";
+  btn.classList.add("ok");
+  setTimeout(function(){ btn.textContent=old; btn.classList.remove("ok"); }, 1100);
+}
 function writeText(text, btn){
-  function ok(){
-    if(btn){
-      var old=btn.textContent;
-      btn.textContent="تم";
-      btn.classList.add("ok");
-      setTimeout(function(){btn.textContent=old;btn.classList.remove("ok")},1100);
-    }
-    toast("تم النسخ");
-  }
+  text=String(text||"");
+  if(!text.trim()){ toast("لا يوجد نص"); return; }
+  function ok(){ flashBtn(btn); toast("تم النسخ"); }
   function fallback(){
     var ta=document.createElement("textarea");
-    ta.value=text; ta.setAttribute("readonly","");
-    ta.style.cssText="position:fixed;left:-9999px;top:0";
-    document.body.appendChild(ta); ta.select(); ta.setSelectionRange(0, ta.value.length);
-    try{document.execCommand("copy");ok()}catch(e){toast("تعذر النسخ")}
+    ta.value=text;
+    ta.setAttribute("readonly","");
+    ta.style.cssText="position:fixed;top:0;left:0;width:1px;height:1px;opacity:0";
+    document.body.appendChild(ta);
+    ta.focus(); ta.select(); ta.setSelectionRange(0, ta.value.length);
+    var done=false;
+    try{ done=document.execCommand("copy"); }catch(e){}
     document.body.removeChild(ta);
+    if(done) ok(); else toast("تعذر النسخ");
   }
   if(navigator.clipboard && window.isSecureContext){
     navigator.clipboard.writeText(text).then(ok).catch(fallback);
   } else fallback();
 }
-
+function drugPlain(d){
+  var lines=[d[0], "الفصل "+d[1]+" — "+C[d[1]].ar+" / "+C[d[1]].title, "", "الآلية: "+d[3], "", "الاستخدام: "+d[4], "", "التأثيرات والتحذيرات: "+d[5]];
+  (d[6]||[]).forEach(function(e){ lines.push("", e[0]+": "+e[1]); });
+  lines.push("", "د. منوّرة محمد جواد");
+  return lines.join("\n");
+}
 function mkNav(){
   nav.innerHTML=""; chips.innerHTML="";
-  function add(k, label, sub){
+  function add(k, title, sub, chipLabel){
     var b=document.createElement("button");
     b.type="button";
     b.setAttribute("aria-pressed", String(k===cat));
-    b.innerHTML=esc(label)+(sub?'<span class="pg">'+esc(sub)+"</span>":"");
-    b.onclick=function(){cat=k; mkNav(); render(); closeMenu(); window.scrollTo({top:0,behavior:"smooth"})};
+    b.innerHTML='<span class="t">'+esc(title)+'</span><span class="s">'+esc(sub)+'</span>';
+    b.onclick=function(){ cat=k; mkNav(); render(); closeMenu(); window.scrollTo({top:0,behavior:"smooth"}); };
     nav.appendChild(b);
-
     var c=document.createElement("button");
     c.type="button"; c.className="chip";
     c.setAttribute("aria-pressed", String(k===cat));
-    c.textContent=k==="all"?"الكل":("Ch."+k);
-    c.onclick=function(){cat=k; mkNav(); render(); window.scrollTo({top:0,behavior:"smooth"})};
+    c.textContent=chipLabel;
+    c.onclick=function(){ cat=k; mkNav(); render(); window.scrollTo({top:0,behavior:"smooth"}); };
     chips.appendChild(c);
   }
-  add("all","كل الفصول / All","PDF 1–234");
+  add("all","كل الفصول","Chapters 8–17","الكل");
   Object.keys(C).forEach(function(k){
-    add(k, "Ch. "+k+" · "+C[k].ar, C[k].title+" · pp. "+C[k].pdf);
+    add(k, "الفصل "+k+" · "+C[k].ar, C[k].title, "ف "+k);
   });
 }
-
-function sectionBlock(title, text){
+function sectionHTML(title, text){
   return '<div class="section">'+
     '<div class="section-head"><h3>'+esc(title)+'</h3>'+
-    '<button type="button" class="copy-btn" data-copy="'+esc(text)+'">نسخ</button></div>'+
-    '<p>'+esc(text)+'</p></div>';
+    '<button type="button" class="copy-btn" data-kind="section">نسخ</button></div>'+
+    '<p class="section-text">'+esc(text)+'</p></div>';
 }
-
-function drugText(d){
-  var lines=[d[0],"Chapter "+d[1]+" — "+C[d[1]].title+(d[2]?", PDF pp. "+d[2]:""),"","Mechanism: "+d[3],"","Clinical use: "+d[4],"","Key effects and cautions: "+d[5]];
-  (d[6]||[]).forEach(function(e){lines.push("",e[0]+": "+e[1])});
-  lines.push("","د. منوّرة محمد جواد · Morgan & Mikhail");
-  return lines.join("\n");
-}
-
 function card(d){
-  var parts=[];
-  parts.push(sectionBlock("Mechanism / الآلية", d[3]));
-  parts.push(sectionBlock("Clinical use / الاستخدام", d[4]));
-  parts.push(sectionBlock("Key effects & cautions / التأثيرات والتحذيرات", d[5]));
-  (d[6]||[]).forEach(function(e){ parts.push(sectionBlock(e[0], e[1])); });
-  var r="Ch. "+d[1]+" · PDF "+C[d[1]].pdf+(d[2]?" · "+d[2]:"");
-  return '<details>'+
-    '<summary><span class="nm">'+esc(d[0])+'</span><span class="tag">Ch. '+d[1]+'</span></summary>'+
+  var parts=[
+    sectionHTML("الآلية · Mechanism", d[3]),
+    sectionHTML("الاستخدام · Clinical use", d[4]),
+    sectionHTML("التأثيرات والتحذيرات · Cautions", d[5])
+  ];
+  (d[6]||[]).forEach(function(e){ parts.push(sectionHTML(e[0], e[1])); });
+  return '<details class="drug" data-drug="'+esc(d[0])+'">'+
+    '<summary><span class="dot" aria-hidden="true"></span><span class="nm">'+esc(d[0])+'</span><span class="ch">ف '+d[1]+'</span></summary>'+
     '<div class="body">'+
-      '<div class="actions"><button type="button" class="copy-btn" data-copy-all="1" data-name="'+esc(d[0])+'">نسخ الموضوع كاملاً</button></div>'+
+      '<div class="actions"><button type="button" class="copy-btn" data-kind="all" data-drug="'+esc(d[0])+'">نسخ الموضوع كاملاً</button></div>'+
       parts.join("")+
-      '<p class="ref">مصدر تعليمي · '+esc(r)+' · د. منوّرة محمد جواد</p>'+
     '</div></details>';
 }
-
 function render(){
   var s=q.value.trim().toLowerCase();
-  var groups={}; Object.keys(C).forEach(function(k){groups[k]=[]});
+  var groups={}; Object.keys(C).forEach(function(k){ groups[k]=[]; });
   var total=0;
   D.forEach(function(d){
     if(cat!=="all" && String(d[1])!==String(cat)) return;
@@ -427,19 +502,19 @@ function render(){
     if(s && hay.indexOf(s)<0) return;
     groups[d[1]].push(d); total++;
   });
-  cnt.textContent=total+" دواء"+(cat==="all"?"":" · الفصل "+cat);
-
+  document.getElementById("statDrugs").textContent=D.length+" دواء";
+  cnt.textContent=total+" نتيجة"+(cat==="all"?"":" · الفصل "+cat);
   if(!total){
-    list.innerHTML='<p class="empty">لا توجد نتائج. جرّب اسماً آخر أو امسح البحث.</p>';
+    list.innerHTML='<p class="empty">لا توجد نتائج مطابقة.</p>';
     return;
   }
   var html="";
   Object.keys(C).forEach(function(k){
     var arr=groups[k]; if(!arr.length) return;
-    html+='<section class="chapter-block" id="ch-'+k+'">'+
+    html+='<section class="chapter" id="ch-'+k+'">'+
       '<div class="chapter-head"><h2>الفصل '+k+': '+esc(C[k].ar)+'</h2>'+
-      '<span class="meta">'+esc(C[k].title)+' · '+arr.length+' · PDF '+esc(C[k].pdf)+'</span></div>'+
-      '<div class="drug-grid">'+arr.map(card).join("")+'</div></section>';
+      '<span class="meta">'+esc(C[k].title)+' · '+arr.length+'</span></div>'+
+      '<div class="grid">'+arr.map(card).join("")+'</div></section>';
   });
   list.innerHTML=html;
 }
@@ -447,35 +522,36 @@ function render(){
 list.addEventListener("click", function(e){
   var btn=e.target.closest(".copy-btn");
   if(!btn) return;
-  e.preventDefault(); e.stopPropagation();
-  if(btn.getAttribute("data-copy-all")){
-    var name=btn.getAttribute("data-name");
-    var d=D.find(function(x){return x[0]===name});
-    if(d) writeText(drugText(d), btn);
+  e.preventDefault();
+  e.stopPropagation();
+  var kind=btn.getAttribute("data-kind");
+  if(kind==="all"){
+    var name=btn.getAttribute("data-drug");
+    var d=byName[name];
+    if(d) writeText(drugPlain(d), btn);
     return;
   }
-  writeText(btn.getAttribute("data-copy")||"", btn);
+  var box=btn.closest(".section");
+  var p=box && box.querySelector(".section-text");
+  writeText(p ? p.textContent : "", btn);
 });
 
 document.getElementById("copySel").onclick=function(){
-  var sel=window.getSelection && String(window.getSelection());
-  if(!sel){ toast("حدّد نصاً أولاً"); return; }
+  var sel=String(window.getSelection ? window.getSelection() : "");
+  if(!sel.trim()){ toast("حدّد نصاً أولاً"); return; }
   writeText(sel, null);
 };
-
 q.addEventListener("input", render);
-document.getElementById("expandAll").onclick=function(){ list.querySelectorAll("details").forEach(function(d){d.open=true}); };
-document.getElementById("collapseAll").onclick=function(){ list.querySelectorAll("details").forEach(function(d){d.open=false}); };
+document.getElementById("expandAll").onclick=function(){ list.querySelectorAll("details").forEach(function(d){ d.open=true; }); };
+document.getElementById("collapseAll").onclick=function(){ list.querySelectorAll("details").forEach(function(d){ d.open=false; }); };
 document.getElementById("themeBtn").onclick=function(){
-  var cur=document.documentElement.getAttribute("data-theme");
-  var next=cur==="dark"?"light":cur==="light"?"dark":(matchMedia("(prefers-color-scheme:dark)").matches?"light":"dark");
-  document.documentElement.setAttribute("data-theme", next);
+  var dark=document.documentElement.getAttribute("data-theme")==="dark";
+  document.documentElement.setAttribute("data-theme", dark?"light":"dark");
 };
 document.getElementById("menuBtn").onclick=function(){
   side.classList.add("open"); backdrop.hidden=false; backdrop.classList.add("show");
 };
 backdrop.addEventListener("click", closeMenu);
-
 mkNav(); render();
 </script>
 </body>
