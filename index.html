@@ -455,6 +455,76 @@ var D=[
 
 
 
+var DOSE={
+"Nitrous oxide":"Analgesia / adjunct: commonly ~50–70% with O2 (MAC ~104%, so alone incomplete). Avoid when high FiO2 needed or closed gas spaces present.",
+"Halothane":"Maintenance often ~0.5–1.5% inspired (titrate to effect / MAC ~0.75%). Induction historically higher then reduced. Limit exogenous epinephrine (classic caution ~1.5 mcg/kg).",
+"Isoflurane":"Maintenance commonly ~0.5–1.5% inspired (MAC ~1.2%). Titrate to hemodynamics and anesthetic depth.",
+"Desflurane":"Maintenance commonly ~2–6% or ~0.5–1 MAC (MAC ~6%). Avoid rapid large increases; special heated vaporizer required.",
+"Sevoflurane":"Inhalation induction often 4–8% in O2/N2O; maintenance commonly ~1–3% (MAC ~2%). Some advise fresh-gas flow ≥2 L/min for long cases with certain absorbents.",
+"Xenon":"MAC ~71%; limited clinical availability. Dosing is by inspired fraction toward MAC with closed-circuit / reclaim systems when used.",
+"Thiopental":"Induction commonly 3–5 mg/kg IV adults (reduce in elderly/hypovolemia). Seizure control: small incremental IV doses. Infusions raise context-sensitive half-time.",
+"Methohexital":"Induction often ~1–1.5 mg/kg IV. ECT dosing is protocol-specific; titrate to seizure goals.",
+"Propofol":"Induction typically 1.5–2.5 mg/kg IV adults (lower in elderly/ASA III–IV). Infusion/TIVA commonly 50–200 mcg/kg/min. Sedation lower rates; use aseptic technique and discard per label.",
+"Etomidate":"Induction commonly 0.2–0.3 mg/kg IV. Brief deep sedation for procedures is dose/titration based; single induction doses still suppress adrenocortical enzymes transiently.",
+"Ketamine":"Induction ~1–2 mg/kg IV or ~4–6 mg/kg IM. Analgesic / subanesthetic infusions often 0.1–0.5 mg/kg/h (protocol-dependent). Antisialagogue often co-administered.",
+"Midazolam":"Premed / sedation commonly 0.01–0.05 mg/kg IV (adults often 1–2 mg increments). Higher for induction co-administration; reduce with opioids/elderly.",
+"Diazepam":"Anxiolysis / seizures: IV dosing is incremental and indication-specific (often 2.5–5 mg increments IV for acute seizures under monitoring). Long active metabolites prolong effect.",
+"Lorazepam":"Sedation / status protocols commonly 0.02–0.06 mg/kg IV (status regimens institutional). Slower onset than midazolam IV.",
+"Dexmedetomidine":"Loading (if used) often 0.5–1 mcg/kg over 10 min; infusion commonly 0.2–0.7 mcg/kg/h (titrate; watch bradycardia/hypotension).",
+"Morphine":"Perioperative IV commonly 0.05–0.1 mg/kg increments (adults often 2–5 mg IV titrated). PCA / infusion per protocol. Reduce in renal impairment (M6G).",
+"Meperidine":"Analgesia historically ~0.5–1 mg/kg IV/IM; shivering often 12.5–25 mg IV adults. Avoid chronic / high cumulative doses (normeperidine).",
+"Fentanyl":"Analgesia / blunting intubation commonly 1–2 mcg/kg IV; larger doses for cardiac/balanced anesthesia. Infusions mcg/kg/h per case length; watch rigidity with rapid large boluses.",
+"Sufentanil":"Highly potent; intraoperative boluses/infusions are mcg/kg and mcg/kg/h (much lower mg totals than fentanyl). Titrate carefully; plan postoperative ventilation if large totals.",
+"Alfentanil":"Brief stimuli often ~5–15 mcg/kg IV; infusions mcg/kg/min with rapid titration. Reduce with other depressants.",
+"Remifentanil":"Infusion commonly 0.05–0.2 mcg/kg/min (induction/intubation higher briefly). Almost no residual opioid analgesia after stop—plan alternate analgesia first.",
+"Hydromorphone":"IV titration commonly 0.2–0.4 mg increments adults (or ~0.01–0.02 mg/kg). PCA per protocol; potency >> morphine.",
+"Naloxone":"Respiratory depression: start low (e.g., 40–80 mcg IV increments adults) and titrate; infusions if recurrent. Full abrupt reversal can cause pain/hypertension/pulmonary edema.",
+"Succinylcholine":"Intubation commonly 1–1.5 mg/kg IV (IM higher if no IV). RSI classic dose ~1–1.5 mg/kg. Check contraindications before any dose.",
+"Rocuronium":"Intubation often 0.6 mg/kg; RSI commonly 1.0–1.2 mg/kg IV. Maintenance incremental ~0.1–0.2 mg/kg. Reverse with sugammadex or neostigmine per depth.",
+"Vecuronium":"Intubation commonly 0.08–0.1 mg/kg IV; maintenance ~0.01–0.015 mg/kg. Prolonged in hepatic/renal disease.",
+"Pancuronium":"Intubation historically ~0.08–0.1 mg/kg IV; long-acting—less used now. Expect vagolysis/tachycardia.",
+"Atracurium":"Intubation commonly 0.4–0.5 mg/kg IV; maintenance ~0.08–0.1 mg/kg. Inject slowly to limit histamine release.",
+"Cisatracurium":"Intubation commonly 0.15–0.2 mg/kg IV; infusion ICU ~1–3 mcg/kg/min (titrate to train-of-four).",
+"Mivacurium":"Intubation often ~0.15–0.25 mg/kg IV (divided/slow if histamine concern). Short acting via plasma cholinesterase.",
+"Neostigmine":"Reversal commonly 0.04–0.07 mg/kg IV (usual adult ceiling ~5 mg) with anticholinergic; only after adequate spontaneous recovery begins.",
+"Edrophonium":"Historical shallow-block reversal often ~0.5–1 mg/kg IV with atropine. Brief action; not for deep block.",
+"Pyridostigmine":"OR reversal less common than neostigmine; myasthenia dosing is chronic oral/IV protocol-specific—not interchangeable with neostigmine OR doses.",
+"Sugammadex":"Rocuronium/vecuronium: commonly 2 mg/kg (moderate), 4 mg/kg (deep), 16 mg/kg (immediate reversal after high-dose rocuronium)—follow TOF/PTC and label.",
+"Atropine":"Bradycardia ACLS/anesthesia often 0.4–1 mg IV adults (pediatric weight-based). With neostigmine: commonly ~0.01–0.02 mg/kg IV.",
+"Glycopyrrolate":"Antisialagogue / with neostigmine commonly ~0.01 mg/kg IV (often 0.2 mg glycopyrrolate per 1 mg neostigmine in adults—follow local ratio).",
+"Scopolamine":"PONV patch typically 1.5 mg transdermal before surgery. IV/IM antisialagogue doses are small and sedation-prone in elderly.",
+"Epinephrine":"Anaphylaxis IM often 0.3–0.5 mg (1:1000) adults; IV infusions mcg/min for shock; cardiac arrest per ACLS. Local anesthetic infiltration commonly 1:200,000 (5 mcg/mL).",
+"Norepinephrine":"Shock infusion commonly 0.01–0.3 mcg/kg/min (or mcg/min protocols)—titrate to MAP; central line preferred.",
+"Dopamine":"Infusion historically 2–20 mcg/kg/min with dose-dependent receptor effects; many centers prefer norepinephrine for septic shock.",
+"Phenylephrine":"Bolus often 50–100 mcg IV adults; infusion ~0.1–1 mcg/kg/min. Expect reflex bradycardia.",
+"Ephedrine":"Bolus commonly 5–10 mg IV adults (repeat with tachyphylaxis caution).",
+"Dobutamine":"Infusion commonly 2–20 mcg/kg/min titrated to cardiac output/perfusion.",
+"Isoproterenol":"Bradycardia / chronotropy infusions often start ~0.5–5 mcg/min adults (weight-based in some protocols)—arrhythmia risk.",
+"Esmolol":"Loading often 0.5 mg/kg IV over ~1 min; infusion commonly 50–200 mcg/kg/min for rate control / intubation response.",
+"Labetalol":"Perioperative HTN: intermittent IV commonly 5–20 mg increments (max cumulative per protocol) or infusion 0.5–2 mg/min.",
+"Clonidine":"Premed oral often 0.1–0.3 mg adults; IV/epidural adjunct dosing is route-specific. Watch hypotension/bradycardia; taper chronic therapy.",
+"Phentolamine":"Pheochromocytoma / extravasation: IV boluses often 1–5 mg adults titrated; local infiltration for extravasation per protocol.",
+"Nitroprusside":"Infusion commonly 0.3–2 mcg/kg/min (rarely higher briefly); use lowest effective rate; cyanide risk rises with high/prolonged doses.",
+"Nitroglycerin":"Infusion often 5–100 mcg/min (or mcg/kg/min protocols) titrated to pain/BP/preload goals.",
+"Hydralazine":"Perioperative IV commonly 5–10 mg increments adults (repeat q20–30 min as needed). Onset delayed vs nitroprusside.",
+"Nicardipine":"Infusion commonly 5–15 mg/h adults titrated to BP.",
+"Clevidipine":"Start often 1–2 mg/h IV; double q90s early then titrate; usual 4–6 mg/h (higher if needed). Lipid emulsion vehicle.",
+"Lidocaine":"Infiltration commonly 1–2% (max dose roughly ~4.5 mg/kg plain / ~7 mg/kg with epinephrine—follow label). IV induction adjunct often 1–1.5 mg/kg. Antiarrhythmic per ACLS.",
+"Bupivacaine":"Spinal/epidural/PNB concentrations 0.25–0.75% depending on block; max dose roughly ~2–2.5 mg/kg (lower without epi)—high cardiotoxicity if intravascular.",
+"Ropivacaine":"Epidural/PNB commonly 0.2–0.75%; max dose roughly ~3 mg/kg (label/institution). Less cardiotoxic than bupivacaine but LAST still possible.",
+"Mepivacaine":"Infiltration/PNB commonly 1–2%; max roughly ~5–7 mg/kg depending on epi—follow product label.",
+"Prilocaine":"Infiltration / IVRA dosing product-specific; watch methemoglobinemia above higher mg/kg totals (classically concern >~600 mg adults).",
+"Chloroprocaine":"Epidural short cases often 2–3% (preservative-free formulations for neuraxial). Rapid ester hydrolysis shortens duration.",
+"Tetracaine":"Spinal doses are small (often mg totals in hyperbaric solutions—protocol/kit specific). High potency; avoid inadvertent IV.",
+"Ondansetron":"PONV commonly 4 mg IV adults (pediatric weight-based). Watch QT with other risk factors.",
+"Dexamethasone":"PONV prophylaxis commonly 4–8 mg IV adults. Avoid rapid IV push if perineal pruritus bothersome.",
+"Metoclopramide":"PONV / prokinetic commonly 10 mg IV adults (pediatric weight-based). Extrapyramidal risk.",
+"Droperidol":"PONV low-dose often 0.625–1.25 mg IV adults. QT warning—screen risk factors.",
+"Flumazenil":"Reversal commonly 0.2 mg IV then 0.1–0.2 mg increments (usual total ≤1 mg for sedation reversal). Resedation possible—observe.",
+"Dantrolene":"MH crisis: initial 2.5 mg/kg IV rapid, repeat to total often up to 10 mg/kg (protocol/kit). Continuations per MH guidelines.",
+"Ketorolac":"Adults commonly 15–30 mg IV/IM q6h (lower in elderly); limit duration (often ≤5 days). Avoid in renal risk/bleeding."
+};
+
 var cat="all";
 var q=document.getElementById("q");
 var list=document.getElementById("list");
@@ -512,7 +582,7 @@ function writeText(text, btn){
   } else fallback();
 }
 function drugPlain(d){
-  var lines=[d[0], "الفصل "+d[1]+" — "+C[d[1]].ar+" / "+C[d[1]].title, "", "الآلية: "+d[3], "", "الاستخدام: "+d[4], "", "التأثيرات والتحذيرات: "+d[5]];
+  var lines=[d[0], "الفصل "+d[1]+" — "+C[d[1]].ar+" / "+C[d[1]].title, "", "الآلية: "+d[3], "", "الاستخدام: "+d[4], "", "الجرعات: "+(DOSE[d[0]]||"—"), "", "التأثيرات والتحذيرات: "+d[5]];
   (d[6]||[]).forEach(function(e){ lines.push("", e[0]+": "+e[1]); });
   lines.push("", "د. منوّرة محمد جواد");
   return lines.join("\n");
@@ -551,6 +621,7 @@ function card(d){
   var parts=[
     sectionHTML("الآلية","Mechanism", d[3]),
     sectionHTML("الاستخدام","Clinical use", d[4]),
+    sectionHTML("الجرعات","Dosing", DOSE[d[0]] || "—"),
     sectionHTML("التأثيرات والتحذيرات","Cautions", d[5])
   ];
   (d[6]||[]).forEach(function(e){ parts.push(sectionHTML(e[0], "", e[1])); });
