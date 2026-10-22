@@ -210,6 +210,12 @@ summary::-webkit-details-marker{display:none}
   border:1px solid rgba(14,127,136,.1);
   min-width:0;
 }
+.section-dosage{
+  border-color:rgba(196,165,116,.45);
+  background:linear-gradient(180deg, rgba(196,165,116,.12), var(--section-2));
+}
+.section-dosage h3{color:#8A6A35}
+html[data-theme="dark"] .section-dosage h3{color:var(--accent-2)}
 .section-head{display:flex; align-items:center; gap:8px; margin-bottom:6px; direction:rtl; min-width:0}
 .section-head h3{margin:0; flex:1; min-width:0; font-size:clamp(.8rem, 2.3vw, .9rem); font-weight:800; color:var(--accent); overflow-wrap:anywhere}
 .copy-btn{
@@ -332,7 +338,7 @@ summary::-webkit-details-marker{display:none}
       <div class="hero-stats">
         <span id="statDrugs">— دواء</span>
         <span>10 فصول</span>
-        <span>جرعات لـ 67 دواء</span>
+        <span>Dosage × 67</span>
       </div>
     </section>
 
@@ -582,7 +588,7 @@ function writeText(text, btn){
   } else fallback();
 }
 function drugPlain(d){
-  var lines=[d[0], "الفصل "+d[1]+" — "+C[d[1]].ar+" / "+C[d[1]].title, "", "الآلية: "+d[3], "", "الاستخدام: "+d[4], "", "الجرعات: "+(DOSE[d[0]]||"—"), "", "التأثيرات والتحذيرات: "+d[5]];
+  var lines=[d[0], "الفصل "+d[1]+" — "+C[d[1]].ar+" / "+C[d[1]].title, "", "الآلية: "+d[3], "", "الاستخدام: "+d[4], "", "Dosage: "+(DOSE[d[0]]||"—"), "", "التأثيرات والتحذيرات: "+d[5]];
   (d[6]||[]).forEach(function(e){ lines.push("", e[0]+": "+e[1]); });
   lines.push("", "د. منوّرة محمد جواد");
   return lines.join("\n");
@@ -621,9 +627,12 @@ function card(d){
   var parts=[
     sectionHTML("الآلية","Mechanism", d[3]),
     sectionHTML("الاستخدام","Clinical use", d[4]),
-    sectionHTML("الجرعات","Dosing", DOSE[d[0]] || "—"),
     sectionHTML("التأثيرات والتحذيرات","Cautions", d[5])
   ];
+  parts.splice(2, 0, '<div class="section section-dosage">'+
+    '<div class="section-head"><h3><span class="meta-en" dir="ltr" lang="en">Dosage</span></h3>'+
+    '<button type="button" class="copy-btn" data-kind="section">نسخ</button></div>'+
+    '<p class="section-text" dir="ltr" lang="en">'+(DOSE[d[0]]?esc(DOSE[d[0]]):"—")+'</p></div>');
   (d[6]||[]).forEach(function(e){ parts.push(sectionHTML(e[0], "", e[1])); });
   return '<details class="drug" data-drug="'+esc(d[0])+'">'+
     '<summary><span class="dot" aria-hidden="true"></span><span class="nm" dir="ltr" lang="en">'+esc(d[0])+'</span><span class="ch">ف '+d[1]+'</span></summary>'+
