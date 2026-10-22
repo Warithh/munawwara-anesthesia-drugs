@@ -1,0 +1,6 @@
+فصل الادوية.pdf
+*.pdf
+_build.py
+_drugs_snippet.js
+.DS_Store
+Thumbs.db

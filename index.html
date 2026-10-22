@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0E7C86">
+<title>مرجع أدوية التخدير — د. منوّرة محمد جواد</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --bg:#EEF5F6; --surface:#FFFFFF; --ink:#0C2430; --muted:#4A6670; --line:#C5D6DB;
+  --accent:#0B6E78; --accent-soft:#D7EEF0; --accent-ink:#FFFFFF;
+  --warn:#7A3410; --warn-bg:#F8EDE4; --tag:#DCEBEE;
+  --side:#E3F0F2; --top:64px; --radius:12px;
+  --safe-t:env(safe-area-inset-top,0px); --safe-b:env(safe-area-inset-bottom,0px);
+  --safe-l:env(safe-area-inset-left,0px); --safe-r:env(safe-area-inset-right,0px);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0A161B; --surface:#12242B; --ink:#E6F1F3; --muted:#9BB3BA; --line:#243F48;
+    --accent:#4DBDC8; --accent-soft:#16343A; --accent-ink:#062028;
+    --warn:#F0B48E; --warn-bg:#2A1C14; --tag:#1A333C; --side:#0E1E24; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0A161B; --surface:#12242B; --ink:#E6F1F3; --muted:#9BB3BA; --line:#243F48;
+  --accent:#4DBDC8; --accent-soft:#16343A; --accent-ink:#062028;
+  --warn:#F0B48E; --warn-bg:#2A1C14; --tag:#1A333C; --side:#0E1E24; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--top) + 12px)}
+html,body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:"IBM Plex Sans Arabic","IBM Plex Sans",sans-serif;
+  line-height:1.65;font-size:16px;
+  -webkit-user-select:text;user-select:text;-webkit-touch-callout:default;
+  -webkit-tap-highlight-color:transparent;
+}
+::selection{background:color-mix(in srgb,var(--accent) 30%,transparent)}
+button,input{font:inherit;touch-action:manipulation}
+.topbar{
+  position:sticky;top:0;z-index:30;
+  display:flex;align-items:center;gap:10px;
+  min-height:var(--top);
+  padding:calc(8px + var(--safe-t)) 14px 8px;
+  padding-inline:max(14px,var(--safe-l)) max(14px,var(--safe-r));
+  background:color-mix(in srgb,var(--surface) 92%,transparent);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+}
+.menu-btn,.icon-btn{
+  flex:none;width:44px;height:44px;border-radius:10px;
+  border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;
+  display:grid;place-items:center;font-size:1.1rem;
+}
+.brand-wrap{flex:1;min-width:0}
+.brand-name{margin:0;font-size:clamp(1rem,3.5vw,1.2rem);font-weight:700;line-height:1.25}
+.brand-sub{margin:2px 0 0;font-size:.78rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.shell{display:grid;grid-template-columns:280px minmax(0,1fr);max-width:1280px;margin:0 auto;min-height:100vh}
+.side{
+  position:sticky;top:var(--top);align-self:start;height:calc(100vh - var(--top));
+  overflow:auto;background:var(--side);border-inline-end:1px solid var(--line);
+  padding:16px 12px calc(24px + var(--safe-b));
+}
+.nav-label{font-size:.72rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin:0 8px 8px}
+.nav{display:flex;flex-direction:column;gap:4px}
+.nav button{
+  text-align:start;padding:11px 12px;border-radius:10px;border:1px solid transparent;
+  background:transparent;color:var(--ink);cursor:pointer;font-size:.92rem;line-height:1.35;
+}
+.nav button:hover{background:var(--surface)}
+.nav button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.nav .pg{display:block;font-size:.72rem;opacity:.85;margin-top:3px}
+.main{padding:18px 22px calc(48px + var(--safe-b));min-width:0}
+.hero{
+  background:
+    radial-gradient(120% 80% at 100% 0%, color-mix(in srgb,var(--accent) 16%,transparent), transparent 55%),
+    var(--surface);
+  border:1px solid var(--line);border-radius:16px;padding:18px 18px 16px;margin-bottom:14px;
+}
+.hero h1{margin:0 0 6px;font-size:clamp(1.35rem,3vw,1.75rem);line-height:1.3}
+.hero p{margin:0;color:var(--muted);font-size:.95rem}
+.warn{
+  background:var(--warn-bg);color:var(--warn);border-radius:10px;
+  padding:11px 13px;font-size:.9rem;margin:12px 0 0;
+}
+.chips{
+  display:flex;gap:8px;overflow-x:auto;padding:4px 0 12px;
+  scrollbar-width:thin;-webkit-overflow-scrolling:touch;
+}
+.chip{
+  flex:none;padding:8px 14px;border-radius:999px;border:1px solid var(--line);
+  background:var(--surface);color:var(--ink);cursor:pointer;font-size:.86rem;white-space:nowrap;
+}
+.chip[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.toolbar{display:grid;gap:10px;margin-bottom:8px}
+input[type=search]{
+  width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:12px;
+  background:var(--surface);color:var(--ink);font-size:1rem;
+  -webkit-user-select:text;user-select:text;
+}
+input:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.tools{display:flex;flex-wrap:wrap;gap:8px}
+.tools button{
+  min-height:40px;padding:8px 12px;border-radius:10px;border:1px solid var(--line);
+  background:var(--surface);color:var(--ink);cursor:pointer;font-size:.88rem;
+}
+.count{color:var(--muted);font-size:.9rem;margin:4px 0 12px}
+.chapter-block{margin:0 0 26px}
+.chapter-head{
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;
+  padding:8px 0;margin-bottom:10px;border-bottom:2px solid var(--line);
+  position:sticky;top:calc(var(--top) + 2px);background:var(--bg);z-index:5;
+}
+.chapter-head h2{margin:0;font-size:1.08rem}
+.chapter-head .meta{color:var(--muted);font-size:.82rem}
+.drug-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px}
+details{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  min-width:0;overflow:hidden;
+}
+summary{
+  list-style:none;cursor:pointer;padding:14px 14px;
+  display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;
+  -webkit-user-select:text;user-select:text;
+}
+summary::-webkit-details-marker{display:none}
+.nm{font-weight:700;font-size:1.05rem}
+.tag{margin-inline-start:auto;font-size:.75rem;background:var(--tag);padding:3px 10px;border-radius:999px}
+.body{padding:0 12px 14px;border-top:1px solid var(--line)}
+.section{
+  margin-top:10px;padding:10px 11px;border-radius:10px;background:color-mix(in srgb,var(--accent-soft) 55%,var(--surface));
+  border:1px solid color-mix(in srgb,var(--line) 80%,transparent);
+}
+.section-head{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.section-head h3{margin:0;font-size:.92rem;font-weight:700;flex:1}
+.copy-btn{
+  flex:none;min-height:34px;padding:5px 10px;border-radius:8px;
+  border:1px solid var(--line);background:var(--surface);color:var(--ink);
+  cursor:pointer;font-size:.78rem;font-weight:600;
+}
+.copy-btn.ok{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.section p{margin:0;font-size:.95rem;white-space:pre-wrap;-webkit-user-select:text;user-select:text}
+.actions{display:flex;justify-content:flex-end;gap:8px;padding-top:10px}
+.ref{color:var(--muted);font-size:.8rem;margin:12px 2px 0}
+.empty{padding:28px 0;color:var(--muted);text-align:center}
+.foot{font-size:.86rem;color:var(--muted);margin-top:24px;max-width:70ch}
+.backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:40}
+.backdrop.show{display:block}
+.toast{
+  position:fixed;left:50%;bottom:calc(18px + var(--safe-b));transform:translateX(-50%) translateY(120%);
+  background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:999px;font-size:.88rem;
+  z-index:50;opacity:0;transition:.25s ease;pointer-events:none;white-space:nowrap;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media (max-width:980px){
+  .shell{grid-template-columns:1fr}
+  .side{
+    display:block;position:fixed;top:0;bottom:0;inset-inline-start:0;width:min(88vw,300px);
+    height:100%;z-index:45;transform:translateX(100%);transition:transform .22s ease;
+    padding-top:calc(16px + var(--safe-t));box-shadow:0 0 40px rgba(0,0,0,.2);
+  }
+  html[dir="rtl"] .side{transform:translateX(-100%)}
+  .side.open{transform:translateX(0)!important}
+  .main{padding:14px 14px calc(40px + var(--safe-b))}
+  .drug-grid{grid-template-columns:1fr}
+  .menu-btn{display:grid}
+}
+@media (min-width:981px){
+  .menu-btn{display:none}
+  .chips{display:none}
+}
+@media (min-width:700px) and (max-width:980px){
+  .drug-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+</style>
+</head>
+<body>
+<div class="backdrop" id="backdrop" hidden></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<header class="topbar">
+  <button type="button" class="menu-btn" id="menuBtn" aria-label="الفصول">☰</button>
+  <div class="brand-wrap">
+    <p class="brand-name">د. منوّرة محمد جواد</p>
+    <p class="brand-sub">مرجع أدوية التخدير والعناية الحرجة · Anesthesia Drug Reference</p>
+  </div>
+  <button type="button" class="icon-btn" id="themeBtn" aria-label="السمة">◐</button>
+</header>
+
+<div class="shell">
+  <aside class="side" id="side" aria-label="الفصول">
+    <p class="nav-label">Chapters / الفصول</p>
+    <nav class="nav" id="nav"></nav>
+  </aside>
+  <main class="main">
+    <section class="hero">
+      <h1>مرجع أدوية التخدير</h1>
+      <p>منصة تعليمية بإشراف <strong>الدكتورة منوّرة محمد جواد</strong> — ملخصات من Morgan &amp; Mikhail (فصول 8–17).</p>
+      <p class="warn">للتعليم فقط وليس بديلاً عن بروتوكول مؤسستك أو نشرة الدواء الرسمية. يمكنك تحديد أي نص ونسخه، أو استخدام زر «نسخ» بجانب كل فقرة.</p>
+    </section>
+
+    <div class="chips" id="chips" role="group" aria-label="Quick chapters"></div>
+
+    <div class="toolbar">
+      <input type="search" id="q" placeholder="ابحث باسم الدواء أو التأثير… / Search drug or effect" aria-label="بحث" autocomplete="off">
+      <div class="tools">
+        <button type="button" id="expandAll">توسيع الكل</button>
+        <button type="button" id="collapseAll">طي الكل</button>
+        <button type="button" id="copySel">نسخ التحديد</button>
+      </div>
+    </div>
+    <p class="count" id="count" aria-live="polite"></p>
+    <div id="list"></div>
+    <p class="foot">المنصة باسم <strong>الدكتورة منوّرة محمد جواد</strong>. الملخصات تعليمية بصياغة خاصة. الصفحات تقريبية حسب ملف الفصول. مناسبة للجوال والآيباد والحاسوب.</p>
+  </main>
+</div>
+
+<script>
+["copy","cut","selectstart","contextmenu"].forEach(function(ev){
+  document.addEventListener(ev, function(){}, true);
+});
+
+var C={
+  8:{title:"Inhalation Anesthetics", ar:"مخدرات استنشاقية", pdf:"1–35"},
+  9:{title:"Intravenous Anesthetics", ar:"مخدرات وريدية", pdf:"36–60"},
+  10:{title:"Analgesic Agents", ar:"مسكنات", pdf:"61–78"},
+  11:{title:"Neuromuscular Blocking Agents", ar:"مرخيات عضلية", pdf:"79–115"},
+  12:{title:"Cholinesterase Inhibitors & Antagonists", ar:"مثبطات الكولينستراز ومضادات", pdf:"116–133"},
+  13:{title:"Anticholinergic Drugs", ar:"مضادات كولينرجية", pdf:"134–141"},
+  14:{title:"Adrenergic Agonists & Antagonists", ar:"أدوية أدرينرجية", pdf:"142–164"},
+  15:{title:"Hypotensive Agents", ar:"خافضات ضغط", pdf:"165–178"},
+  16:{title:"Local Anesthetics", ar:"مخدرات موضعية", pdf:"179–198"},
+  17:{title:"Adjuncts to Anesthesia", ar:"مساعدات التخدير", pdf:"199–234"}
+};
+
+var D=[
+["Nitrous oxide",8,"19–22","Gas at room temperature; NMDA receptor antagonist like xenon. Nonflammable but supports combustion.","Adjunct to potent volatile agents (65% lowers their MAC by about 50%). Analgesia below MAC in dental work, labor, trauma and minor procedures.","Expands closed air spaces. Limited use when high inspired oxygen is needed. Raises postoperative nausea and vomiting in adults. Usually avoided before the third trimester.",[["Cardiovascular","Sympathetic stimulation keeps blood pressure, cardiac output and heart rate roughly unchanged despite direct myocardial depression, which can be unmasked in coronary disease or severe hypovolemia. Pulmonary vascular resistance rises modestly."],["Respiratory","Faster, shallower breathing with little change in minute ventilation. Markedly depresses the hypoxic drive even at small concentrations."],["CNS and other organs","Raises cerebral blood flow, blood volume and oxygen consumption, so ICP rises mildly. No meaningful muscle relaxation. Does not trigger malignant hyperthermia. Lowers renal blood flow and urine output; hepatic flow falls less than with volatile agents."],["Toxicity","Oxidizes the cobalt of vitamin B12, inhibiting methionine synthetase (myelin) and thymidylate synthetase (DNA). Prolonged exposure can cause megaloblastic anemia and neuropathy. May impair neutrophil function. Ozone-depleting greenhouse gas."],["Contraindications","About 35 times more soluble than nitrogen, so it enters closed gas spaces faster than nitrogen leaves: pneumothorax, bowel obstruction, air embolism, pneumocephalus, pulmonary air cysts, intraocular gas, middle-ear grafts. It also diffuses into endotracheal cuffs."],["Interactions","Changing the nitrous oxide fraction changes the volatile concentration delivered at a fixed vaporizer setting. It attenuates the circulatory and respiratory effects of volatile agents in adults."]]],
+["Halothane",8,"22–26","Halogenated alkane, nonflammable. Potent bronchodilator.","Historically used for inhalation induction, especially in children.","Dose-dependent myocardial depression. Sensitizes the heart to epinephrine (avoid above 1.5 mcg/kg). Rare immune-mediated hepatitis.",[["Cardiovascular","At 2 MAC in non-surgical patients, blood pressure and cardiac output fell by 50%. Blunts the baroreflex; may cause junctional rhythm or bradycardia. In infants it lowers cardiac output through lower heart rate and contractility."],["Respiratory","Rapid shallow breathing, lower alveolar ventilation, higher PaCO2 and apneic threshold. Hypoxic drive is severely depressed even at 0.1 MAC. Bronchodilation is not blocked by β-blockers. Reduces mucociliary clearance."],["CNS","Dilates cerebral vessels, raising blood flow and volume, and blunts autoregulation. Establish hyperventilation before giving it to prevent ICP rise."],["Other organs","Relaxes muscle and potentiates nondepolarizing blockers. Triggers malignant hyperthermia. Lowers renal blood flow, GFR and urine output (preoperative hydration limits this). Hepatic blood flow falls with cardiac output; clearance of fentanyl, phenytoin and verapamil may be impaired."],["Metabolism and toxicity","Oxidized by CYP2E1 to trifluoroacetic acid. Reductive metabolism under low oxygen, especially after enzyme induction by barbiturates, produces hepatotoxic products. Risk factors for hepatitis: repeated exposures at short intervals, middle-aged obese women, personal or family history. Features include eosinophilia, rash and fever, with an immune response against trifluoroacetylated liver proteins."],["Contraindications","Unexplained liver dysfunction after a prior exposure; intracranial mass lesions (only with modest hyperventilation); hypovolemia or severe left ventricular dysfunction; pheochromocytoma or use of exogenous epinephrine."],["Interactions","Myocardial depression worsens with β-blockers and calcium channel blockers. Blood pressure swings and arrhythmias with tricyclics and MAO inhibitors (not absolute contraindications). Ventricular arrhythmias with aminophylline."]]],
+["Isoflurane",8,"26–27","Nonflammable volatile agent with a pungent ethereal odor.","Maintenance of anesthesia.","Rapid concentration rises transiently increase heart rate, blood pressure and norepinephrine. Vasodilation is poorly tolerated in severe hypovolemia. Triggers malignant hyperthermia.",[["Cardiovascular","Minimal left ventricular depression. Cardiac output is kept up by a higher heart rate (partly preserved baroreflex), while vascular resistance and pressure fall. Mild coronary dilation; the old coronary steal concern has largely been forgotten."],["Respiratory","Less tachypnea than other volatiles, so minute ventilation falls more. Blunts hypoxic and hypercapnic responses at 0.1 MAC. Irritates the airway yet bronchodilates, slightly less than halothane."],["CNS","Above 1 MAC raises CBF and ICP, less than halothane, and hyperventilation need not be started beforehand. Lowers cerebral oxygen use; isoelectric EEG at 2 MAC."],["Other organs","Relaxes muscle. Lowers renal blood flow, GFR and urine output. Hepatic artery perfusion is preserved and liver tests are usually unaffected."],["Metabolism and toxicity","Metabolized to trifluoroacetic acid. Fluoride may rise, even with prolonged ICU sedation, but nephrotoxicity is extremely unlikely. Little oxidative metabolism limits hepatic risk."],["Interactions","Epinephrine can be given up to 4.5 mcg/kg. Potentiates nondepolarizing blockers."]]],
+["Desflurane",8,"27–30","Isoflurane with fluorine in place of chlorine. Vapor pressure 681 mm Hg at 20°C, so it needs a special vaporizer. Blood/gas coefficient 0.42, lower than nitrous oxide. About one-fourth as potent as other volatiles.","Maintenance with tight control; wake-up about 50% faster than isoflurane.","Pungent, so a poor choice for inhalation induction. Rapid increases cause sympathetic surges. Desiccated absorbent can generate carbon monoxide. Triggers malignant hyperthermia.",[["Cardiovascular","Like isoflurane: vascular resistance and pressure fall, cardiac output little changed at 1–2 MAC, moderate rise in heart rate, CVP and PA pressure. Rapid increases cause transient tachycardia, hypertension and catecholamine rise, more than isoflurane, attenuated by fentanyl, esmolol or clonidine."],["Respiratory","Lower tidal volume, higher rate, lower alveolar ventilation, higher PaCO2. Induction can cause salivation, breath-holding, cough and laryngospasm; airway resistance may rise in children with reactive airways."],["CNS","Vasodilates cerebral vessels but cerebral oxygen use falls, so flow stays adequate at a mean pressure of 60 mm Hg. ICP can be lowered by hyperventilation. EEG shows burst suppression at high concentration."],["Other organs","Dose-dependent decrease in train-of-four response. No significant nephrotoxicity or hepatic effect."],["Metabolism and toxicity","Minimal metabolism; fluoride unchanged. Degraded by desiccated CO2 absorbent, especially barium hydroxide lime, into carbon monoxide. Suspect it with carboxyhemoglobin or unexpectedly low pulse oximetry. Discard dried absorbent. Most ozone-depleting volatile."],["Contraindications","Severe hypovolemia, malignant hyperthermia, intracranial hypertension."],["Interactions","Potentiates nondepolarizing blockers like isoflurane. Epinephrine up to 4.5 mcg/kg. Switching from isoflurane late in the case does not speed recovery or PACU discharge. Emergence delirium in some children."]]],
+["Sevoflurane",8,"30–32","Fluorinated ether; blood/gas coefficient 0.65. Nonpungent. Modest vapor pressure allows a conventional vaporizer.","Smooth, rapid inhalation induction in children and adults (4–8% in nitrous oxide/oxygen within about 1 minute). Faster emergence than isoflurane, though not earlier PACU discharge.","Compound A with some CO2 absorbents, fluoride release, rare hydrogen fluoride. Triggers malignant hyperthermia.",[["Cardiovascular","Mild myocardial depression. Vascular resistance and pressure fall slightly less than with isoflurane or desflurane, but little heart rate rise means cardiac output is less well maintained. May prolong QT (in infants up to 60 min after emergence)."],["Respiratory","Depresses respiration and reverses bronchospasm similarly to isoflurane."],["CNS","Slight rise in CBF and ICP at normocarbia. Above 1.5 MAC may impair autoregulation, less than isoflurane. No seizure activity reported."],["Other organs","Relaxation is adequate for intubation after inhalation induction, though most clinicians deepen anesthesia or add a blocker. Slightly lowers renal blood flow. Hepatic artery flow rises as portal flow falls, keeping total flow; not linked to immune hepatotoxicity."],["Metabolism and toxicity","About 5% is metabolized (CYP2E1, inducible by ethanol and phenobarbital). Fluoride exceeds 50 μmol/L in about 7% of patients without clinically significant kidney dysfunction. Compound A forms with barium hydroxide lime or soda lime (not calcium hydroxide), more with low flows, heat, dry absorbent and long cases; no known human harm, though some advise fresh gas flow of at least 2 L/min in cases lasting several hours. Hydrogen fluoride from impurities is minimized by added water and plastic packaging. Rare circuit fires with desiccated absorbent."],["Contraindications","Severe hypovolemia, susceptibility to malignant hyperthermia, intracranial hypertension."],["Interactions","Potentiates nondepolarizing blockers. Does not sensitize the heart to catecholamine arrhythmias."]]],
+["Xenon",8,"33","Inert noble gas. NMDA inhibition by competing at the glycine site. MAC about 71%, blood/gas coefficient 0.115.","Rarely used: very fast onset and emergence, minimal cardiovascular, hepatic and renal effects. A small trial found less postoperative delirium than sevoflurane in off-pump coronary surgery.","High cost, scarcity and low potency limit use. Does not trigger malignant hyperthermia and does not harm the ozone layer. May be neuroprotective.",[]],
+
+["Thiopental",9,"37–41","Barbiturate enhancing GABA-A activity; highly lipid soluble; redistributes quickly after a single dose.","Induction; brief control of seizures; historically used for burst-suppression / brain protection infusions.","Lowers cerebral metabolism, blood flow and ICP. No analgesia. Hypotension. Avoid in acute intermittent porphyria. Context-sensitive half-time rises with prolonged infusion."],
+["Methohexital",9,"37–41","Oxybarbiturate with a methyl group; GABA-A potentiator. Shorter acting than thiopental after a single dose.","Induction; preferred barbiturate when a seizure is the goal (ECT) because it is less anticonvulsant than phenobarbital-class agents.","Involuntary muscle movements, hiccups, pain on injection. Same porphyria caution as other barbiturates."],
+["Propofol",9,"53–55","Enhances GABA-A activity; 1% lipid emulsion.","Induction, TIVA, sedation; antiemetic and anticonvulsant.","Hypotension via lower vascular resistance and impaired baroreflex. Profound respiratory depression. Pain on injection. Strict asepsis, use within 6 h. Propofol infusion syndrome with prolonged infusion."],
+["Etomidate",9,"50–52","GABA-A modulator dissolved in propylene glycol.","Induction with hemodynamic stability; useful when cardiac reserve is limited.","Adrenocortical suppression (11-β-hydroxylase), myoclonus, nausea and vomiting, pain on injection. Light anesthetic depth for laryngoscopy unless supplemented."],
+["Ketamine",9,"","NMDA antagonist producing dissociative anesthesia; also used as an analgesic adjunct and antidepressant.","Induction, analgesia, unstable or hypovolemic patients; IM option when IV access is delayed.","Raises heart rate, blood pressure and ICP (context-dependent). Emergence reactions. Hypersalivation—often paired with an anticholinergic."],
+["Midazolam",9,"","Water-soluble benzodiazepine enhancing GABA-A; short clinical duration after bolus via redistribution.","Premedication, sedation, amnesia, seizures; co-induction.","Respiratory depression, additive with opioids. Reversible with flumazenil."],
+["Diazepam",9,"","Lipophilic benzodiazepine; active metabolites prolong effect.","Anxiolysis, seizures, muscle spasm; less common for induction than midazolam.","Prolonged sedation, especially in elderly or hepatic impairment. Painful IM/IV injection (propylene glycol formulations)."],
+["Lorazepam",9,"","Benzodiazepine with reliable anticonvulsant effect and no active metabolites of clinical importance.","Sedation, status epilepticus, ICU anxiolysis.","Slower onset IV than midazolam; prolonged sedation. Respiratory depression with co-administration of opioids."],
+["Dexmedetomidine",9,"55–57","Selective α2-agonist.","Anxiolysis, sedation, analgesia; opioid-sparing adjunct; not a complete anesthetic alone.","Bradycardia and hypotension. Little respiratory depression compared with GABA agonists."],
+
+["Morphine",10,"","μ-opioid agonist; histamine release possible.","Analgesia; longer postoperative coverage than fentanyl.","Histamine release and hypotension. Active metabolite (M6G) accumulates in renal failure. Respiratory depression, nausea, pruritus."],
+["Meperidine",10,"68–72","Opioid with local anesthetic and anticholinergic properties.","Analgesia; treatment of shivering.","Normeperidine accumulates and can cause seizures. Serotonin syndrome with MAO inhibitors. Avoid chronic use in renal failure."],
+["Fentanyl",10,"66–68","Potent μ agonist; highly lipid soluble.","Analgesia; blunts the intubation response; component of balanced anesthesia.","Respiratory depression, bradycardia. Chest wall rigidity with large rapid doses."],
+["Sufentanil",10,"","Very potent μ agonist; more lipid soluble than fentanyl.","Major cases needing intense analgesia with relatively stable hemodynamics.","Profound respiratory depression; delayed recovery after large total doses."],
+["Alfentanil",10,"","Shorter-acting μ agonist with rapid onset due to low pKa (more non-ionized).","Brief intense stimuli; infusion for shorter procedures.","Muscle rigidity, bradycardia, respiratory depression."],
+["Remifentanil",10,"68–69","Opioid broken down by nonspecific esterases, so offset is ultrashort and context-insensitive.","Infusion with rapid recovery; neurosurgery and TIVA.","Plan postoperative analgesia in advance. Bradycardia, hypotension, rigidity. Acute opioid tolerance / hyperalgesia possible."],
+["Hydromorphone",10,"","μ agonist more potent than morphine with less histamine release.","Perioperative and PCA analgesia.","Respiratory depression; accumulate caution in organ failure."],
+["Naloxone",10,"63","Competitive opioid antagonist.","Reversal of opioid respiratory depression.","Shorter action than many opioids, so effects can return. Can cause pain, hypertension, arrhythmia, pulmonary edema."],
+
+["Succinylcholine",11,"","Depolarizing blocker; fastest onset, short duration (plasma cholinesterase).","Rapid-sequence intubation.","Hyperkalemia (burns, crush, denervation, myopathies). Malignant hyperthermia, masseter spasm, bradycardia. Prolonged block with abnormal cholinesterase."],
+["Rocuronium",11,"","Nondepolarizing aminosteroid; rapid onset at higher intubating doses.","Intubation and relaxation; alternative for rapid sequence.","Anaphylaxis is possible. Reversed by sugammadex or neostigmine (depth-dependent)."],
+["Vecuronium",11,"","Intermediate-acting aminosteroid; minimal cardiovascular effect.","Muscle relaxation for intermediate procedures.","Can be prolonged in renal or hepatic failure and with long infusions."],
+["Pancuronium",11,"","Long-acting aminosteroid; vagolytic.","Long cases needing lasting relaxation (less common now).","Tachycardia and hypertension; prolonged effect in renal failure."],
+["Atracurium",11,"","Benzylisoquinolinium cleared by Hofmann elimination and ester hydrolysis.","Relaxation when organ-independent clearance is desirable.","Histamine release with rapid large doses → flushing, hypotension, bronchospasm."],
+["Cisatracurium",11,"","Benzylisoquinolinium isomer cleared mainly by Hofmann elimination.","Relaxation, including ICU infusions and organ failure.","Little histamine release; organ-independent elimination."],
+["Mivacurium",11,"","Short-acting benzylisoquinolinium hydrolyzed by plasma cholinesterase.","Short procedures when rapid spontaneous recovery is wanted.","Histamine release; prolonged block with cholinesterase deficiency."],
+
+["Neostigmine",12,"124–132","Cholinesterase inhibitor that increases acetylcholine at the neuromuscular junction.","Reversal of nondepolarizing block once recovery has begun.","Give with an anticholinergic to blunt bradycardia and secretions. Ineffective for deep block."],
+["Edrophonium",12,"","Short-acting cholinesterase inhibitor.","Historically used for rapid reversal of shallow residual block; also diagnostic testing.","Brief action; muscarinic effects—pair with atropine. Not for deep block."],
+["Pyridostigmine",12,"","Longer-acting cholinesterase inhibitor.","Reversal option; more often chronic myasthenia therapy than OR use.","Muscarinic side effects; slower onset than edrophonium."],
+["Sugammadex",12,"129–133","Modified γ-cyclodextrin that encapsulates rocuronium and vecuronium.","Reversal of even deep aminosteroid block.","Anaphylaxis, bradycardia. May reduce hormonal contraceptive efficacy. Limited effect on benzylisoquinoliniums."],
+
+["Atropine",13,"134–140","Tertiary antimuscarinic; crosses the blood–brain barrier.","Bradycardia, antisialagogue, paired with cholinesterase inhibitors.","Tachycardia, dry mouth, mydriasis, central anticholinergic syndrome."],
+["Glycopyrrolate",13,"139–140","Quaternary antimuscarinic; does not enter the CNS.","Antisialagogue; paired with neostigmine.","Less tachycardia than atropine; no central effects."],
+["Scopolamine",13,"","Tertiary antimuscarinic with strong central and antiemetic effects.","Premedication, PONV prophylaxis (patch), antisialagogue.","Sedation, amnesia, delirium risk in elderly; mydriasis, dry mouth."],
+
+["Epinephrine",14,"","α and β agonist.","Anaphylaxis, cardiac arrest, bronchospasm, shock; additive in local anesthetics.","Arrhythmias, hypertension, ischemia. Tissue necrosis if extravasated."],
+["Norepinephrine",14,"","α1 and β1 agonist.","Vasodilatory / septic shock.","Reflex bradycardia; reduced organ perfusion if excessive. Extravasation injury."],
+["Dopamine",14,"","Dose-dependent dopaminergic, β, then α agonist.","Shock with need for inotropy and vasoconstriction (role has narrowed vs norepinephrine).","Tachycardia, arrhythmias; variable receptor effects by dose and infusion duration."],
+["Phenylephrine",14,"151–152","Pure α1 agonist.","Hypotension after induction or neuraxial block.","Reflex bradycardia and reduced cardiac output."],
+["Ephedrine",14,"154","Direct and indirect sympathomimetic (norepinephrine release).","Anesthesia-induced hypotension, especially when heart rate is low.","Tachyphylaxis with repeated doses; tachycardia; caution with MAO inhibitors."],
+["Dobutamine",14,"155","β1-predominant inotrope with some β2 / α effects.","Low cardiac output, heart failure, stress testing.","Tachycardia, arrhythmias; may lower vascular resistance."],
+["Isoproterenol",14,"","Nonselective β agonist.","Bradycardia / heart block when pacing is unavailable; pulmonary hypertension contexts historically.","Tachycardia, arrhythmias, vasodilation and hypotension."],
+["Esmolol",14,"158–159","Ultrashort-acting β1-selective blocker cleared by esterases.","Blunting intubation response, rate control.","Bradycardia, hypotension; caution in heart block and asthma."],
+["Labetalol",14,"","Combined α1 and nonselective β blocker.","Perioperative hypertension.","Bradycardia, bronchospasm risk; avoid in decompensated heart failure."],
+["Clonidine",14,"","Central α2 agonist.","Premedication, opioid sparing, blunting of sympathetic responses; adjuvant in regional anesthesia.","Sedation, bradycardia, hypotension; rebound hypertension if stopped abruptly."],
+["Phentolamine",14,"","Competitive nonselective α blocker.","Pheochromocytoma; local treatment of catecholamine extravasation.","Reflex tachycardia, hypotension."],
+
+["Nitroprusside",15,"165–172","Arterial and venous vasodilator via nitric oxide.","Hypertensive crisis, controlled hypotension.","Cyanide / thiocyanate toxicity, reflex tachycardia, rebound hypertension, raised ICP."],
+["Nitroglycerin",15,"171–172","Nitric oxide donor, mainly venodilator at lower doses.","Myocardial ischemia, preload reduction, controlled hypotension.","Headache, hypotension, tolerance with continuous infusion."],
+["Hydralazine",15,"","Direct arteriolar vasodilator.","Perioperative hypertension, especially when afterload reduction is desired.","Reflex tachycardia, lupus-like syndrome with chronic oral use."],
+["Nicardipine",15,"174","Dihydropyridine calcium channel blocker.","Perioperative hypertension by infusion.","Reflex tachycardia, headache."],
+["Clevidipine",15,"","Ultrashort dihydropyridine in lipid emulsion; esterase clearance.","Titratable arterial pressure control.","Reflex tachycardia; lipid load with long infusions; allergy to soy/egg components."],
+
+["Lidocaine",16,"","Amide local anesthetic; sodium channel blocker.","Infiltration, blocks, epidural, topical; IV for arrhythmias and intubation response.","Local anesthetic systemic toxicity with overdose or intravascular injection."],
+["Bupivacaine",16,"","Long-acting amide, highly protein bound.","Spinal, epidural, peripheral nerve blocks.","Marked cardiotoxicity with intravascular injection; treat toxicity with lipid emulsion."],
+["Ropivacaine",16,"194","Amide related to bupivacaine; S-enantiomer.","Epidural and peripheral blocks.","Less cardiotoxic and motor-blocking than bupivacaine, but toxicity is still possible."],
+["Mepivacaine",16,"","Intermediate-acting amide.","Peripheral nerve blocks and infiltration when moderate duration is needed.","LAST risk; less vasodilation than lidocaine so epinephrine often optional."],
+["Prilocaine",16,"","Amide with relatively low CNS toxicity; component of EMLA.","Infiltration, IV regional, topical.","Methemoglobinemia from o-toluidine metabolite—dose-related."],
+["Chloroprocaine",16,"","Short-acting ester rapidly hydrolyzed by plasma cholinesterase.","Epidural for short cases / obstetric when rapid offset is wanted.","Avoid large volumes if atypical cholinesterase; past concerns with preservatives in spinal use—know your formulation."],
+["Tetracaine",16,"","Long-acting potent ester.","Spinal anesthesia; topical ophthalmic / airway historically.","High systemic toxicity risk if absorbed rapidly; prolonged spinal block."],
+
+["Ondansetron",17,"220","5-HT3 antagonist.","Prevention and treatment of postoperative nausea and vomiting.","QT prolongation, headache, constipation."],
+["Dexamethasone",17,"220","Corticosteroid.","PONV prophylaxis, anti-inflammatory, airway edema adjunct.","Hyperglycemia; perineal pruritus with rapid injection."],
+["Metoclopramide",17,"","Dopamine D2 antagonist; prokinetic.","PONV; accelerate gastric emptying when appropriate.","Extrapyramidal effects, akathisia; avoid in bowel obstruction / Parkinson disease."],
+["Droperidol",17,"","Butyrophenone dopamine antagonist.","PONV; historically neurolept anesthesia.","QT prolongation (boxed warning historically); sedation, dysphoria."],
+["Flumazenil",17,"228–229","Competitive benzodiazepine antagonist.","Reversal of benzodiazepine sedation.","Short action so sedation can return. Seizures in dependent patients or mixed overdoses."],
+["Dantrolene",17,"","Ryanodine-receptor directed muscle relaxant reducing sarcoplasmic Ca2+ release.","Malignant hyperthermia treatment; also used in some spasm / NMS contexts.","Muscle weakness, hepatotoxicity with chronic oral use; prepare per institutional MH protocol."],
+["Ketorolac",17,"","Parenteral NSAID (COX inhibition).","Opioid-sparing postoperative analgesia.","Bleeding risk, renal impairment, peptic ulcer disease—limit duration and dose."]
+];
+
+
+var cat="all";
+var q=document.getElementById("q");
+var list=document.getElementById("list");
+var cnt=document.getElementById("count");
+var nav=document.getElementById("nav");
+var chips=document.getElementById("chips");
+var side=document.getElementById("side");
+var backdrop=document.getElementById("backdrop");
+var toastEl=document.getElementById("toast");
+
+function esc(s){
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+function toast(msg){
+  toastEl.textContent=msg;
+  toastEl.classList.add("show");
+  clearTimeout(toastEl._t);
+  toastEl._t=setTimeout(function(){toastEl.classList.remove("show")},1400);
+}
+function closeMenu(){
+  side.classList.remove("open");
+  backdrop.classList.remove("show");
+  backdrop.hidden=true;
+}
+function writeText(text, btn){
+  function ok(){
+    if(btn){
+      var old=btn.textContent;
+      btn.textContent="تم";
+      btn.classList.add("ok");
+      setTimeout(function(){btn.textContent=old;btn.classList.remove("ok")},1100);
+    }
+    toast("تم النسخ");
+  }
+  function fallback(){
+    var ta=document.createElement("textarea");
+    ta.value=text; ta.setAttribute("readonly","");
+    ta.style.cssText="position:fixed;left:-9999px;top:0";
+    document.body.appendChild(ta); ta.select(); ta.setSelectionRange(0, ta.value.length);
+    try{document.execCommand("copy");ok()}catch(e){toast("تعذر النسخ")}
+    document.body.removeChild(ta);
+  }
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(text).then(ok).catch(fallback);
+  } else fallback();
+}
+
+function mkNav(){
+  nav.innerHTML=""; chips.innerHTML="";
+  function add(k, label, sub){
+    var b=document.createElement("button");
+    b.type="button";
+    b.setAttribute("aria-pressed", String(k===cat));
+    b.innerHTML=esc(label)+(sub?'<span class="pg">'+esc(sub)+"</span>":"");
+    b.onclick=function(){cat=k; mkNav(); render(); closeMenu(); window.scrollTo({top:0,behavior:"smooth"})};
+    nav.appendChild(b);
+
+    var c=document.createElement("button");
+    c.type="button"; c.className="chip";
+    c.setAttribute("aria-pressed", String(k===cat));
+    c.textContent=k==="all"?"الكل":("Ch."+k);
+    c.onclick=function(){cat=k; mkNav(); render(); window.scrollTo({top:0,behavior:"smooth"})};
+    chips.appendChild(c);
+  }
+  add("all","كل الفصول / All","PDF 1–234");
+  Object.keys(C).forEach(function(k){
+    add(k, "Ch. "+k+" · "+C[k].ar, C[k].title+" · pp. "+C[k].pdf);
+  });
+}
+
+function sectionBlock(title, text){
+  return '<div class="section">'+
+    '<div class="section-head"><h3>'+esc(title)+'</h3>'+
+    '<button type="button" class="copy-btn" data-copy="'+esc(text)+'">نسخ</button></div>'+
+    '<p>'+esc(text)+'</p></div>';
+}
+
+function drugText(d){
+  var lines=[d[0],"Chapter "+d[1]+" — "+C[d[1]].title+(d[2]?", PDF pp. "+d[2]:""),"","Mechanism: "+d[3],"","Clinical use: "+d[4],"","Key effects and cautions: "+d[5]];
+  (d[6]||[]).forEach(function(e){lines.push("",e[0]+": "+e[1])});
+  lines.push("","د. منوّرة محمد جواد · Morgan & Mikhail");
+  return lines.join("\n");
+}
+
+function card(d){
+  var parts=[];
+  parts.push(sectionBlock("Mechanism / الآلية", d[3]));
+  parts.push(sectionBlock("Clinical use / الاستخدام", d[4]));
+  parts.push(sectionBlock("Key effects & cautions / التأثيرات والتحذيرات", d[5]));
+  (d[6]||[]).forEach(function(e){ parts.push(sectionBlock(e[0], e[1])); });
+  var r="Ch. "+d[1]+" · PDF "+C[d[1]].pdf+(d[2]?" · "+d[2]:"");
+  return '<details>'+
+    '<summary><span class="nm">'+esc(d[0])+'</span><span class="tag">Ch. '+d[1]+'</span></summary>'+
+    '<div class="body">'+
+      '<div class="actions"><button type="button" class="copy-btn" data-copy-all="1" data-name="'+esc(d[0])+'">نسخ الموضوع كاملاً</button></div>'+
+      parts.join("")+
+      '<p class="ref">مصدر تعليمي · '+esc(r)+' · د. منوّرة محمد جواد</p>'+
+    '</div></details>';
+}
+
+function render(){
+  var s=q.value.trim().toLowerCase();
+  var groups={}; Object.keys(C).forEach(function(k){groups[k]=[]});
+  var total=0;
+  D.forEach(function(d){
+    if(cat!=="all" && String(d[1])!==String(cat)) return;
+    var hay=(d.join(" ")+" "+C[d[1]].title+" "+C[d[1]].ar).toLowerCase();
+    if(s && hay.indexOf(s)<0) return;
+    groups[d[1]].push(d); total++;
+  });
+  cnt.textContent=total+" دواء"+(cat==="all"?"":" · الفصل "+cat);
+
+  if(!total){
+    list.innerHTML='<p class="empty">لا توجد نتائج. جرّب اسماً آخر أو امسح البحث.</p>';
+    return;
+  }
+  var html="";
+  Object.keys(C).forEach(function(k){
+    var arr=groups[k]; if(!arr.length) return;
+    html+='<section class="chapter-block" id="ch-'+k+'">'+
+      '<div class="chapter-head"><h2>الفصل '+k+': '+esc(C[k].ar)+'</h2>'+
+      '<span class="meta">'+esc(C[k].title)+' · '+arr.length+' · PDF '+esc(C[k].pdf)+'</span></div>'+
+      '<div class="drug-grid">'+arr.map(card).join("")+'</div></section>';
+  });
+  list.innerHTML=html;
+}
+
+list.addEventListener("click", function(e){
+  var btn=e.target.closest(".copy-btn");
+  if(!btn) return;
+  e.preventDefault(); e.stopPropagation();
+  if(btn.getAttribute("data-copy-all")){
+    var name=btn.getAttribute("data-name");
+    var d=D.find(function(x){return x[0]===name});
+    if(d) writeText(drugText(d), btn);
+    return;
+  }
+  writeText(btn.getAttribute("data-copy")||"", btn);
+});
+
+document.getElementById("copySel").onclick=function(){
+  var sel=window.getSelection && String(window.getSelection());
+  if(!sel){ toast("حدّد نصاً أولاً"); return; }
+  writeText(sel, null);
+};
+
+q.addEventListener("input", render);
+document.getElementById("expandAll").onclick=function(){ list.querySelectorAll("details").forEach(function(d){d.open=true}); };
+document.getElementById("collapseAll").onclick=function(){ list.querySelectorAll("details").forEach(function(d){d.open=false}); };
+document.getElementById("themeBtn").onclick=function(){
+  var cur=document.documentElement.getAttribute("data-theme");
+  var next=cur==="dark"?"light":cur==="light"?"dark":(matchMedia("(prefers-color-scheme:dark)").matches?"light":"dark");
+  document.documentElement.setAttribute("data-theme", next);
+};
+document.getElementById("menuBtn").onclick=function(){
+  side.classList.add("open"); backdrop.hidden=false; backdrop.classList.add("show");
+};
+backdrop.addEventListener("click", closeMenu);
+
+mkNav(); render();
+</script>
+</body>
+</html>
