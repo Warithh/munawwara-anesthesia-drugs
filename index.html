@@ -182,7 +182,10 @@ summary::-webkit-details-marker{display:none}
   width:10px; height:10px; border-radius:50%; background:var(--accent);
   box-shadow:0 0 0 6px rgba(14,127,136,.12);
 }
-.nm{font-family:"Literata",Georgia,serif; font-weight:700; font-size:1.12rem; line-height:1.25}
+.nm{
+  font-family:"Literata",Georgia,serif; font-weight:700; font-size:1.12rem; line-height:1.25;
+  direction:ltr; unicode-bidi:isolate; text-align:left;
+}
 .ch{font-size:.75rem; font-weight:700; color:var(--accent); background:var(--soft); padding:4px 10px; border-radius:999px}
 .body{padding:0 14px 16px; border-top:1px solid var(--line)}
 .actions{display:flex; justify-content:flex-end; padding:12px 0 4px}
@@ -191,7 +194,7 @@ summary::-webkit-details-marker{display:none}
   background:linear-gradient(180deg, var(--section), var(--section-2));
   border:1px solid rgba(14,127,136,.1);
 }
-.section-head{display:flex; align-items:center; gap:10px; margin-bottom:6px}
+.section-head{display:flex; align-items:center; gap:10px; margin-bottom:6px; direction:rtl}
 .section-head h3{margin:0; flex:1; font-size:.9rem; font-weight:800; color:var(--accent)}
 .copy-btn{
   flex:none; min-height:36px; padding:6px 12px; border-radius:10px; cursor:pointer;
@@ -199,8 +202,13 @@ summary::-webkit-details-marker{display:none}
   font-size:.8rem; font-weight:800;
 }
 .copy-btn.ok{background:#E8F7F0; border-color:var(--ok); color:var(--ok)}
-.section-text{margin:0; font-size:.98rem; white-space:pre-wrap; -webkit-user-select:text; user-select:text}
-.ref{margin:12px 2px 0; color:var(--muted); font-size:.8rem}
+.section-text{
+  margin:0; font-size:.98rem; white-space:pre-wrap;
+  direction:ltr; unicode-bidi:isolate; text-align:left;
+  -webkit-user-select:text; user-select:text;
+}
+.meta-en,.hero-kicker{direction:ltr; unicode-bidi:isolate; text-align:left}
+.ref{margin:12px 2px 0; color:var(--muted); font-size:.8rem; direction:rtl}
 .empty{text-align:center; padding:40px 10px; color:var(--muted)}
 .foot{margin-top:28px; color:var(--muted); font-size:.9rem; text-align:center}
 .foot strong{color:var(--ink); font-family:"Amiri",serif; font-size:1.05rem}
@@ -260,7 +268,7 @@ summary::-webkit-details-marker{display:none}
 
   <main class="main">
     <section class="hero">
-      <p class="hero-kicker">Anesthesia Drug Desk</p>
+      <p class="hero-kicker" dir="ltr" lang="en">Anesthesia Drug Desk</p>
       <h1>الدكتورة منوّرة محمد جواد</h1>
       <p>مرجع منظم لأدوية التخدير عبر الفصول 8–17، بواجهة سريعة للجوال والآيباد والحاسوب.</p>
       <div class="hero-stats">
@@ -457,7 +465,7 @@ function mkNav(){
     var b=document.createElement("button");
     b.type="button";
     b.setAttribute("aria-pressed", String(k===cat));
-    b.innerHTML='<span class="t">'+esc(title)+'</span><span class="s">'+esc(sub)+'</span>';
+    b.innerHTML='<span class="t">'+esc(title)+'</span><span class="s" dir="ltr" lang="en">'+esc(sub)+'</span>';
     b.onclick=function(){ cat=k; mkNav(); render(); closeMenu(); window.scrollTo({top:0,behavior:"smooth"}); };
     nav.appendChild(b);
     var c=document.createElement("button");
@@ -472,21 +480,24 @@ function mkNav(){
     add(k, "الفصل "+k+" · "+C[k].ar, C[k].title, "ف "+k);
   });
 }
-function sectionHTML(title, text){
+function sectionHTML(titleAr, titleEn, text){
+  var head=titleEn
+    ? (esc(titleAr)+' <span class="meta-en" dir="ltr">· '+esc(titleEn)+'</span>')
+    : '<span class="meta-en" dir="ltr">'+esc(titleAr)+'</span>';
   return '<div class="section">'+
-    '<div class="section-head"><h3>'+esc(title)+'</h3>'+
+    '<div class="section-head"><h3>'+head+'</h3>'+
     '<button type="button" class="copy-btn" data-kind="section">نسخ</button></div>'+
-    '<p class="section-text">'+esc(text)+'</p></div>';
+    '<p class="section-text" dir="ltr" lang="en">'+esc(text)+'</p></div>';
 }
 function card(d){
   var parts=[
-    sectionHTML("الآلية · Mechanism", d[3]),
-    sectionHTML("الاستخدام · Clinical use", d[4]),
-    sectionHTML("التأثيرات والتحذيرات · Cautions", d[5])
+    sectionHTML("الآلية","Mechanism", d[3]),
+    sectionHTML("الاستخدام","Clinical use", d[4]),
+    sectionHTML("التأثيرات والتحذيرات","Cautions", d[5])
   ];
-  (d[6]||[]).forEach(function(e){ parts.push(sectionHTML(e[0], e[1])); });
+  (d[6]||[]).forEach(function(e){ parts.push(sectionHTML(e[0], "", e[1])); });
   return '<details class="drug" data-drug="'+esc(d[0])+'">'+
-    '<summary><span class="dot" aria-hidden="true"></span><span class="nm">'+esc(d[0])+'</span><span class="ch">ف '+d[1]+'</span></summary>'+
+    '<summary><span class="dot" aria-hidden="true"></span><span class="nm" dir="ltr" lang="en">'+esc(d[0])+'</span><span class="ch">ف '+d[1]+'</span></summary>'+
     '<div class="body">'+
       '<div class="actions"><button type="button" class="copy-btn" data-kind="all" data-drug="'+esc(d[0])+'">نسخ الموضوع كاملاً</button></div>'+
       parts.join("")+
@@ -513,7 +524,7 @@ function render(){
     var arr=groups[k]; if(!arr.length) return;
     html+='<section class="chapter" id="ch-'+k+'">'+
       '<div class="chapter-head"><h2>الفصل '+k+': '+esc(C[k].ar)+'</h2>'+
-      '<span class="meta">'+esc(C[k].title)+' · '+arr.length+'</span></div>'+
+      '<span class="meta meta-en" dir="ltr" lang="en">'+esc(C[k].title)+' · '+arr.length+'</span></div>'+
       '<div class="grid">'+arr.map(card).join("")+'</div></section>';
   });
   list.innerHTML=html;
