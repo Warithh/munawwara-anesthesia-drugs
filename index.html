@@ -204,6 +204,21 @@ summary::-webkit-details-marker{display:none}
 .ch{font-size:clamp(.68rem, 2vw, .75rem); font-weight:700; color:var(--accent); background:var(--soft); padding:3px 8px; border-radius:999px; white-space:nowrap}
 .body{padding:0 clamp(10px, 2.5vw, 14px) clamp(12px, 3vw, 16px); border-top:1px solid var(--line)}
 .actions{display:flex; justify-content:flex-end; padding:12px 0 4px}
+.tabs{
+  display:flex; gap:6px; padding:10px 0 4px; border-bottom:1px solid var(--line); margin-bottom:4px;
+}
+.tab-btn{
+  flex:1; min-height:40px; border-radius:10px; cursor:pointer; font-weight:800; font-size:clamp(.78rem, 2.2vw, .88rem);
+  border:1px solid var(--line); background:var(--surface); color:var(--ink);
+}
+.tab-btn[aria-selected="true"]{
+  background:var(--accent); color:var(--accent-ink, #fff); border-color:var(--accent);
+}
+.tab-btn.tab-dosage[aria-selected="true"]{
+  background:linear-gradient(135deg, #8A6A35, #C4A574); border-color:#C4A574; color:#1A1208;
+}
+.tab-panel{display:none; padding-bottom:4px}
+.tab-panel.active{display:block}
 .section{
   margin-top:10px; padding:clamp(10px, 2.4vw, 12px); border-radius:12px;
   background:linear-gradient(180deg, var(--section), var(--section-2));
@@ -213,6 +228,7 @@ summary::-webkit-details-marker{display:none}
 .section-dosage{
   border-color:rgba(196,165,116,.45);
   background:linear-gradient(180deg, rgba(196,165,116,.12), var(--section-2));
+  margin-top:10px;
 }
 .section-dosage h3{color:#8A6A35}
 html[data-theme="dark"] .section-dosage h3{color:var(--accent-2)}
@@ -624,21 +640,29 @@ function sectionHTML(titleAr, titleEn, text){
     '<p class="section-text" dir="ltr" lang="en">'+esc(text)+'</p></div>';
 }
 function card(d){
-  var parts=[
+  var infoParts=[
     sectionHTML("الآلية","Mechanism", d[3]),
     sectionHTML("الاستخدام","Clinical use", d[4]),
     sectionHTML("التأثيرات والتحذيرات","Cautions", d[5])
   ];
-  parts.splice(2, 0, '<div class="section section-dosage">'+
-    '<div class="section-head"><h3><span class="meta-en" dir="ltr" lang="en">Dosage</span></h3>'+
-    '<button type="button" class="copy-btn" data-kind="section">نسخ</button></div>'+
-    '<p class="section-text" dir="ltr" lang="en">'+(DOSE[d[0]]?esc(DOSE[d[0]]):"—")+'</p></div>');
-  (d[6]||[]).forEach(function(e){ parts.push(sectionHTML(e[0], "", e[1])); });
+  (d[6]||[]).forEach(function(e){ infoParts.push(sectionHTML(e[0], "", e[1])); });
+  var doseText=DOSE[d[0]]?esc(DOSE[d[0]]):"—";
   return '<details class="drug" data-drug="'+esc(d[0])+'">'+
     '<summary><span class="dot" aria-hidden="true"></span><span class="nm" dir="ltr" lang="en">'+esc(d[0])+'</span><span class="ch">ف '+d[1]+'</span></summary>'+
     '<div class="body">'+
       '<div class="actions"><button type="button" class="copy-btn" data-kind="all" data-drug="'+esc(d[0])+'">نسخ الموضوع كاملاً</button></div>'+
-      parts.join("")+
+      '<div class="tabs" role="tablist" aria-label="'+esc(d[0])+' tabs">'+
+        '<button type="button" class="tab-btn" role="tab" data-tab="info" aria-selected="true">الشروحات</button>'+
+        '<button type="button" class="tab-btn tab-dosage" role="tab" data-tab="dosage" aria-selected="false" dir="ltr" lang="en">Dosage</button>'+
+      '</div>'+
+      '<div class="tab-panel active" data-panel="info" role="tabpanel">'+infoParts.join("")+'</div>'+
+      '<div class="tab-panel" data-panel="dosage" role="tabpanel">'+
+        '<div class="section section-dosage">'+
+          '<div class="section-head"><h3><span class="meta-en" dir="ltr" lang="en">Dosage</span></h3>'+
+          '<button type="button" class="copy-btn" data-kind="section">نسخ</button></div>'+
+          '<p class="section-text" dir="ltr" lang="en">'+doseText+'</p>'+
+        '</div>'+
+      '</div>'+
     '</div></details>';
 }
 function render(){
@@ -669,6 +693,21 @@ function render(){
 }
 
 list.addEventListener("click", function(e){
+  var tab=e.target.closest(".tab-btn");
+  if(tab){
+    e.preventDefault();
+    e.stopPropagation();
+    var body=tab.closest(".body");
+    if(!body) return;
+    var which=tab.getAttribute("data-tab");
+    body.querySelectorAll(".tab-btn").forEach(function(b){
+      b.setAttribute("aria-selected", String(b===tab));
+    });
+    body.querySelectorAll(".tab-panel").forEach(function(p){
+      p.classList.toggle("active", p.getAttribute("data-panel")===which);
+    });
+    return;
+  }
   var btn=e.target.closest(".copy-btn");
   if(!btn) return;
   e.preventDefault();
