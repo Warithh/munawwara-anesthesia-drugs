@@ -20,10 +20,11 @@
   --page-bg:radial-gradient(900px 420px at 90% -10%, rgba(196,165,116,.18), transparent 55%),
     radial-gradient(700px 500px at -10% 20%, rgba(14,127,136,.14), transparent 50%),
     linear-gradient(180deg, #EAF5F6 0%, var(--paper) 28%, #EEF6F7 100%);
-  --ok:#0B7A5A; --top:68px; --r:18px;
-  --pad-x:24px; --pad-y:22px; --gap:14px; --fs:16.5px;
-  --hero-h1:clamp(1.85rem, 1.2rem + 2.2vw, 3.05rem);
-  --brand-fs:clamp(1.05rem, 0.95rem + 0.6vw, 1.4rem);
+  --ok:#0B7A5A; --accent-ink:#FFFFFF;
+  /* قيم افتراضية للجوال — تُكبَّر تدريجياً بالـ media queries */
+  --top:56px; --r:14px; --pad-x:12px; --pad-y:12px; --gap:10px; --fs:15px;
+  --hero-h1:clamp(1.28rem, 1rem + 3.2vw, 1.6rem);
+  --brand-fs:clamp(.9rem, 0.78rem + 2vw, 1.1rem);
   --safe-t:env(safe-area-inset-top,0px); --safe-b:env(safe-area-inset-bottom,0px);
   --safe-l:env(safe-area-inset-left,0px); --safe-r:env(safe-area-inset-right,0px);
 }
@@ -38,15 +39,17 @@ html[data-theme="dark"]{
     linear-gradient(180deg, #07161B 0%, #0B1C21 100%);
   color-scheme:dark;
 }
-*{box-sizing:border-box}
+*,*::before,*::after{box-sizing:border-box}
+img,svg,video{max-width:100%; height:auto}
 html{
-  scroll-behavior:smooth; scroll-padding-top:calc(var(--top) + 16px);
-  overflow-x:clip; -webkit-text-size-adjust:100%; text-size-adjust:100%;
+  scroll-behavior:smooth; scroll-padding-top:calc(var(--top) + 12px);
+  overflow-x:hidden; width:100%; max-width:100vw;
+  -webkit-text-size-adjust:100%; text-size-adjust:100%;
 }
 body{
-  margin:0; color:var(--ink); font-family:"Tajawal",sans-serif; font-size:var(--fs); line-height:1.65;
+  margin:0; color:var(--ink); font-family:"Tajawal",sans-serif; font-size:var(--fs); line-height:1.6;
   background:var(--page-bg);
-  min-height:100vh; max-width:100%; overflow-x:clip;
+  min-height:100vh; width:100%; max-width:100vw; overflow-x:hidden;
   -webkit-user-select:text; user-select:text; -webkit-touch-callout:default;
   -webkit-tap-highlight-color:transparent;
 }
@@ -58,14 +61,16 @@ body::before{
 }
 ::selection{background:rgba(14,127,136,.28)}
 button,input{font:inherit; touch-action:manipulation}
-.wrap{position:relative; z-index:1; max-width:1320px; margin:0 auto; width:100%}
+.wrap{position:relative; z-index:1; max-width:1320px; margin:0 auto; width:100%; overflow-x:hidden}
 
 .topbar{
   position:sticky; top:0; z-index:40;
-  display:flex; align-items:center; gap:clamp(8px, 2vw, 12px);
+  display:flex; align-items:center; gap:8px;
   min-height:var(--top);
-  padding:calc(8px + var(--safe-t)) max(12px,var(--safe-r)) 8px max(12px,var(--safe-l));
-  background:rgba(7,30,36,.82); color:#EAF6F7;
+  padding-top:calc(8px + var(--safe-t));
+  padding-bottom:8px;
+  padding-inline:max(12px, var(--safe-l)) max(12px, var(--safe-r));
+  background:rgba(7,30,36,.92); color:#EAF6F7;
   backdrop-filter:blur(16px) saturate(1.2);
   border-bottom:1px solid rgba(255,255,255,.08);
   width:100%;
@@ -85,13 +90,25 @@ button,input{font:inherit; touch-action:manipulation}
 }
 .icon:active{transform:scale(.96)}
 
-.shell{display:grid; grid-template-columns:290px minmax(0,1fr); gap:0; min-height:calc(100vh - var(--top))}
+.shell{display:grid; grid-template-columns:1fr; gap:0; min-height:calc(100vh - var(--top)); width:100%}
+.menu-only{display:grid}
+.chips{display:flex}
 .side{
   background:linear-gradient(180deg, var(--side) 0%, #071F25 100%);
-  color:var(--side-ink); padding:22px 14px calc(28px + var(--safe-b));
-  position:sticky; top:var(--top); height:calc(100vh - var(--top)); overflow:auto;
+  color:var(--side-ink);
+  padding:calc(16px + var(--safe-t)) 12px calc(24px + var(--safe-b));
+  position:fixed; top:0; bottom:0; inset-inline-start:0;
+  width:min(86vw, 300px); height:100%; max-height:100dvh;
+  overflow:auto; z-index:55;
   border-inline-end:1px solid rgba(255,255,255,.06);
+  /* إخفاء الدرج خارج الشاشة — صحيح لـ RTL و LTR */
+  transform:translate3d(105%,0,0);
+  transition:transform .24s ease;
+  will-change:transform;
 }
+html[dir="ltr"] .side{transform:translate3d(-105%,0,0)}
+html[dir="rtl"] .side{transform:translate3d(105%,0,0)}
+.side.open{transform:translate3d(0,0,0)!important}
 .side-title{font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--side-muted); margin:0 10px 12px; font-weight:700}
 .nav{display:flex; flex-direction:column; gap:6px}
 .nav button{
@@ -106,15 +123,15 @@ button,input{font:inherit; touch-action:manipulation}
 .nav .t{display:block; font-weight:700; font-size:.95rem}
 .nav .s{display:block; font-size:.75rem; color:var(--side-muted); margin-top:3px}
 
-.main{padding:var(--pad-y) var(--pad-x) calc(48px + var(--safe-b)); min-width:0; width:100%}
+.main{padding:var(--pad-y) var(--pad-x) calc(48px + var(--safe-b)); min-width:0; width:100%; max-width:100%; overflow-x:hidden}
 .hero{
-  position:relative; overflow:hidden; border-radius:clamp(16px, 4vw, 28px); margin-bottom:clamp(12px, 2.5vw, 18px);
-  padding:clamp(14px, 3.5vw, 36px);
+  position:relative; overflow:hidden; border-radius:clamp(14px, 3vw, 24px); margin-bottom:12px;
+  padding:clamp(12px, 3vw, 28px);
   color:#F4FBFC;
   background:
     radial-gradient(500px 220px at 85% 0%, rgba(196,165,116,.35), transparent 60%),
     linear-gradient(135deg, #08353C 0%, #0E5B63 48%, #0A444C 100%);
-  box-shadow:0 24px 50px rgba(8,53,60,.22);
+  box-shadow:0 16px 36px rgba(8,53,60,.18);
   animation:rise .7s ease both;
 }
 .hero::after{
@@ -148,7 +165,7 @@ button,input{font:inherit; touch-action:manipulation}
 .toolbar{display:grid; gap:10px}
 .search{
   display:flex; align-items:center; gap:10px; background:var(--surface); border:1px solid var(--line);
-  border-radius:16px; padding:4px 4px 4px 14px;
+  border-radius:16px; padding-block:4px; padding-inline:14px 4px; width:100%;
 }
 .search svg{flex:none; opacity:.55}
 .search input{
@@ -176,7 +193,7 @@ button,input{font:inherit; touch-action:manipulation}
 .chapter-head .meta{color:var(--muted); font-size:clamp(.72rem, 2.1vw, .82rem)}
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+  grid-template-columns:1fr;
   gap:var(--gap);
   width:100%;
 }
@@ -262,66 +279,73 @@ html[data-theme="dark"] .section-dosage h3{color:var(--accent-2)}
 
 @keyframes rise{from{opacity:0; transform:translateY(12px)} to{opacity:1; transform:none}}
 @media (prefers-reduced-motion:reduce){
-  *{animation:none!important; transition:none!important}
+  .hero,.panel,.chapter{animation:none!important}
 }
 
-/* هاتف عام */
-@media (max-width:767px){
+/* —— هاتف —— */
+.topbar .mark{display:none}
+.tools button{flex:1 1 calc(50% - 8px); min-width:0}
+.chapter-head{top:calc(var(--top) + 2px); padding-inline:2px}
+.toast{max-width:min(420px, calc(100vw - 24px)); white-space:normal; text-align:center; font-size:.85rem}
+.hero p{max-width:100%}
+.section-head{flex-wrap:wrap}
+.nav .s{overflow-wrap:anywhere}
+.chips{margin-inline:-2px; padding-inline:2px; overscroll-behavior-x:contain}
+.panel{overflow:hidden}
+
+@media (min-width:480px){
   :root{
-    --fs:15px; --top:58px; --pad-x:14px; --pad-y:14px; --gap:10px;
-    --hero-h1:clamp(1.45rem, 1.1rem + 3.2vw, 1.85rem);
-    --brand-fs:clamp(1rem, 0.9rem + 1.4vw, 1.2rem);
+    --fs:15.5px; --top:58px; --pad-x:14px; --pad-y:14px; --r:15px;
+    --hero-h1:clamp(1.38rem, 1.05rem + 2.4vw, 1.8rem);
+    --brand-fs:clamp(.98rem, 0.88rem + 1.2vw, 1.18rem);
   }
-  .shell{grid-template-columns:1fr}
-  .side{
-    position:fixed; top:0; bottom:0; inset-inline-start:0; width:min(86vw,300px); height:100%;
-    z-index:55; transform:translateX(110%); transition:transform .24s ease;
-    padding:calc(16px + var(--safe-t)) 12px calc(24px + var(--safe-b));
+  .topbar .mark{display:grid}
+}
+
+/* آيباد عمودي / تابلت: قائمة منسدلة + عمود أدوية واحد أو اثنين */
+@media (min-width:768px){
+  :root{
+    --fs:15.5px; --top:60px; --r:16px; --pad-x:16px; --pad-y:16px; --gap:12px;
+    --hero-h1:clamp(1.5rem, 1.15rem + 1.4vw, 2rem);
+    --brand-fs:clamp(1.02rem, 0.92rem + 0.7vw, 1.22rem);
   }
-  html[dir="rtl"] .side{transform:translateX(-110%)}
-  .side.open{transform:translateX(0)!important}
+  .side{width:min(70vw, 300px)}
+  .tools button{flex:0 1 auto}
   .grid{grid-template-columns:1fr}
-  .menu-only{display:grid}
-  .chapter-head{top:calc(var(--top) + 2px)}
-  .toast{max-width:calc(100vw - 24px); white-space:normal; text-align:center; font-size:.85rem}
 }
 
-/* هاتف صغير — بعد العام حتى لا يُلغى */
-@media (max-width:480px){
-  :root{
-    --fs:14.5px; --top:56px; --r:14px; --pad-x:12px; --pad-y:12px; --gap:10px;
-    --hero-h1:clamp(1.35rem, 1.05rem + 3.8vw, 1.7rem);
-    --brand-fs:clamp(.95rem, 0.85rem + 1.8vw, 1.15rem);
-  }
-  .topbar .mark{display:none}
-  .hero-stats span{padding:5px 9px}
-  .tools button{flex:1 1 calc(50% - 8px); min-width:0}
-  .chip{padding:7px 11px; font-size:.8rem}
+@media (min-width:900px) and (max-width:1099px){
+  .grid{grid-template-columns:repeat(2, minmax(0, 1fr))}
 }
 
-/* آيباد / تابلت */
-@media (min-width:768px) and (max-width:1024px){
+/* سطح مكتب: شريط فصول ثابت */
+@media (min-width:1100px){
   :root{
-    --fs:15.5px; --top:62px; --pad-x:18px; --pad-y:18px; --gap:12px;
-    --hero-h1:clamp(1.7rem, 1.2rem + 1.8vw, 2.25rem);
-    --brand-fs:clamp(1.05rem, 0.95rem + 0.8vw, 1.28rem);
+    --fs:16.5px; --top:68px; --r:18px; --pad-x:24px; --pad-y:22px; --gap:14px;
+    --hero-h1:clamp(1.85rem, 1.2rem + 2.2vw, 3.05rem);
+    --brand-fs:clamp(1.05rem, 0.95rem + 0.6vw, 1.4rem);
   }
-  .shell{grid-template-columns:1fr}
+  .menu-only{display:none!important}
+  .chips{display:none!important}
+  .shell{
+    display:grid;
+    grid-template-columns:270px minmax(0, 1fr);
+    min-height:calc(100vh - var(--top));
+  }
   .side{
-    position:fixed; top:0; bottom:0; inset-inline-start:0; width:min(70vw,320px); height:100%;
-    z-index:55; transform:translateX(110%); transition:transform .24s ease;
-    padding:calc(16px + var(--safe-t)) 14px calc(24px + var(--safe-b));
+    position:sticky; top:var(--top);
+    inset:auto; inset-inline-start:auto;
+    width:auto; height:calc(100vh - var(--top)); max-height:none;
+    transform:none!important;
+    padding:22px 14px calc(28px + var(--safe-b));
+    z-index:1; will-change:auto;
   }
-  html[dir="rtl"] .side{transform:translateX(-110%)}
-  .side.open{transform:translateX(0)!important}
-  .grid{grid-template-columns:repeat(2, minmax(0,1fr))}
-  .menu-only{display:grid}
-}
-
-/* سطح مكتب */
-@media (min-width:1025px){
-  .menu-only{display:none}
-  .chips{display:none}
+  html[dir="rtl"] .side,
+  html[dir="ltr"] .side{transform:none!important}
+  .grid{grid-template-columns:repeat(auto-fill, minmax(min(100%, 320px), 1fr))}
+  .topbar .mark{display:grid}
+  .backdrop.show{display:none!important}
+  .tools button{flex:0 1 auto}
 }
 </style>
 </head>
@@ -574,6 +598,7 @@ function closeMenu(){
   side.classList.remove("open");
   backdrop.classList.remove("show");
   backdrop.hidden=true;
+  document.body.style.overflow="";
 }
 function flashBtn(btn){
   if(!btn) return;
@@ -737,9 +762,15 @@ document.getElementById("themeBtn").onclick=function(){
   document.documentElement.setAttribute("data-theme", dark?"light":"dark");
 };
 document.getElementById("menuBtn").onclick=function(){
-  side.classList.add("open"); backdrop.hidden=false; backdrop.classList.add("show");
+  side.classList.add("open");
+  backdrop.hidden=false;
+  backdrop.classList.add("show");
+  document.body.style.overflow="hidden";
 };
 backdrop.addEventListener("click", closeMenu);
+window.addEventListener("resize", function(){
+  if(window.matchMedia("(min-width:1100px)").matches) closeMenu();
+});
 mkNav(); render();
 </script>
 </body>
