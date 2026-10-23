@@ -97,18 +97,28 @@ button,input{font:inherit; touch-action:manipulation}
   background:linear-gradient(180deg, var(--side) 0%, #071F25 100%);
   color:var(--side-ink);
   padding:calc(16px + var(--safe-t)) 12px calc(24px + var(--safe-b));
-  position:fixed; top:0; bottom:0; inset-inline-start:0;
+  position:fixed; top:0; bottom:0;
   width:min(86vw, 300px); height:100%; max-height:100dvh;
   overflow:auto; z-index:55;
-  border-inline-end:1px solid rgba(255,255,255,.06);
-  /* إخفاء الدرج خارج الشاشة — صحيح لـ RTL و LTR */
-  transform:translate3d(105%,0,0);
-  transition:transform .24s ease;
-  will-change:transform;
+  border:0; border-inline-end:1px solid rgba(255,255,255,.06);
+  transition:transform .24s ease, visibility .24s ease;
+  visibility:hidden; pointer-events:none;
 }
-html[dir="ltr"] .side{transform:translate3d(-105%,0,0)}
-html[dir="rtl"] .side{transform:translate3d(105%,0,0)}
-.side.open{transform:translate3d(0,0,0)!important}
+/* RTL: الدرج من اليمين ومخفي خارج الحافة اليمنى */
+html[dir="rtl"] .side{
+  right:0; left:auto;
+  transform:translateX(105%);
+}
+/* LTR: الدرج من اليسار ومخفي خارج الحافة اليسرى */
+html[dir="ltr"] .side{
+  left:0; right:auto;
+  transform:translateX(-105%);
+}
+.side.open{
+  transform:translateX(0)!important;
+  visibility:visible!important;
+  pointer-events:auto!important;
+}
 .side-title{font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--side-muted); margin:0 10px 12px; font-weight:700}
 .nav{display:flex; flex-direction:column; gap:6px}
 .nav button{
@@ -332,16 +342,18 @@ html[data-theme="dark"] .section-dosage h3{color:var(--accent-2)}
     grid-template-columns:270px minmax(0, 1fr);
     min-height:calc(100vh - var(--top));
   }
-  .side{
+  .side,
+  html[dir="rtl"] .side,
+  html[dir="ltr"] .side{
     position:sticky; top:var(--top);
-    inset:auto; inset-inline-start:auto;
+    left:auto; right:auto;
     width:auto; height:calc(100vh - var(--top)); max-height:none;
     transform:none!important;
+    visibility:visible!important;
+    pointer-events:auto!important;
     padding:22px 14px calc(28px + var(--safe-b));
-    z-index:1; will-change:auto;
+    z-index:1;
   }
-  html[dir="rtl"] .side,
-  html[dir="ltr"] .side{transform:none!important}
   .grid{grid-template-columns:repeat(auto-fill, minmax(min(100%, 320px), 1fr))}
   .topbar .mark{display:grid}
   .backdrop.show{display:none!important}
